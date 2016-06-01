@@ -20,15 +20,18 @@ class TodoItem extends Component {
         this.props.deleteTask(this.props.todo.id);
       }
     }];
+    const viewCompletedStyling = this.props.todo.isComplete ? { opacity: 0.5 } : {};
+    const labelCompletedStyling = this.props.todo.isComplete ? { textDecorationLine: 'line-through' } : {};
+
     return (
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
           onPress={ () => this.props.toggleCompletion(this.props.todo.id) }
           style={ styles.checkbox }>
-          <View style={[styles.item, { opacity: this.props.todo.isComplete ? 0.5 : 1 }]}>
+          <View style={[styles.item, viewCompletedStyling]}>
             {this._renderCheckbox()}
-            <Text style={ styles.label }>{this.props.todo.text}</Text>
+            <Text style={[styles.label, labelCompletedStyling]}>{this.props.todo.text}</Text>
           </View>
         </TouchableOpacity>
       </Swipeout>
