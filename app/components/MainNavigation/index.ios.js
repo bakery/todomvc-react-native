@@ -40,12 +40,6 @@ class MainNavigation extends Component {
   }
 
   _renderTabContent(tab) {
-    // XX: replace this with code to render specific components/containers
-    // corresponding to tabs in your app, e.g.
-    // if (tab.key === 'maps') {
-    //   return <MapView />;
-    // }
-
     return (
       <View style={ styles.container }>
         <FilteredTodoList filter={tab.key} />

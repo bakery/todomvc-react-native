@@ -14,7 +14,7 @@ import { toggleTaskCompletion } from '../FilteredTodoList/actions';
 class TodoItem extends Component {
   render() {
     return (
-      <View style={ styles.item }>
+      <View style={[styles.item, { opacity: this.props.todo.get('isComplete') ? 0.5 : 1 }]}>
         <ToggleCheck todo={this.props.todo}
           onToggle={this.props.toggleCompletion}
           style={ styles.checkButton } />
