@@ -10,7 +10,7 @@ import styles from './styles';
 
 class ToggleCheck extends Component {
   render() {
-    const imageModule = this.props.todo.get('isComplete') ?
+    const imageModule = this.props.todo.isComplete ?
       require('./images/checked.png') :
       require('./images/unchecked.png');
 
@@ -18,7 +18,7 @@ class ToggleCheck extends Component {
       <View style={[this.props.style, styles.container]}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={ () => this.props.onToggle(this.props.todo.get('id')) }
+          onPress={ () => this.props.onToggle(this.props.todo.id) }
           style={ styles.button }>
           <Image source={imageModule} />
         </TouchableOpacity>

@@ -18,16 +18,16 @@ class TodoItem extends Component {
       text: 'Delete',
       backgroundColor: 'red',
       onPress: () => {
-        this.props.deleteTask(this.props.todo.get('id'));
+        this.props.deleteTask(this.props.todo.id);
       }
     }];
     return (
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
-        <View style={[styles.item, { opacity: this.props.todo.get('isComplete') ? 0.5 : 1 }]}>
+        <View style={[styles.item, { opacity: this.props.todo.isComplete ? 0.5 : 1 }]}>
           <ToggleCheck todo={this.props.todo}
             onToggle={this.props.toggleCompletion}
             style={ styles.checkButton } />
-          <Text style={ styles.label }>{this.props.todo.get('text')}</Text>
+          <Text style={ styles.label }>{this.props.todo.text}</Text>
         </View>
       </Swipeout>
     );
