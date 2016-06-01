@@ -48,7 +48,7 @@ class MainNavigation extends Component {
 
     return (
       <View style={ styles.container }>
-        <FilteredTodoList />
+        <FilteredTodoList filter={tab.key} />
       </View>
     );
   }

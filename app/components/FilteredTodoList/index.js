@@ -10,7 +10,7 @@ import styles from './styles';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { selectTodos } from './reducer';
+import { selectAllTodos, selectActiveTodos, selectCompletedTodos } from './reducer';
 
 import TodoList from '../TodoList';
 
@@ -25,7 +25,8 @@ class FilteredTodoList extends Component {
 }
 
 FilteredTodoList.propTypes = {
-  todos: PropTypes.object.isRequired
+  todos: PropTypes.object.isRequired,
+  filter: PropTypes.string.isRequired
 };
 
 function mapDispatchToProps(dispatch) {
@@ -34,7 +35,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(
-  createSelector(selectTodos, (todos) => ({ todos })),
-  mapDispatchToProps
-)(FilteredTodoList);
+function getSelector(state, props) {
+  const filterToSelector = {
+    'all': selectAllTodos,
+    'completed': selectCompletedTodos,
+    'active': selectActiveTodos
+  };
+  return createSelector(filterToSelector[props.filter], (todos) => ({ todos }))(state, props);
+}
+
+export default connect(getSelector, mapDispatchToProps)(FilteredTodoList);

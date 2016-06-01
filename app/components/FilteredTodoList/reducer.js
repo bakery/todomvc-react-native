@@ -29,6 +29,14 @@ function todos(state = initialState, action) {
 
 export default todos;
 
-export function selectTodos(state) {
+export function selectAllTodos(state) {
   return state.get('todos');
+}
+
+export function selectCompletedTodos(state) {
+  return state.get('todos').filter(todo => todo.get('isComplete'));
+}
+
+export function selectActiveTodos(state) {
+  return state.get('todos').filter(todo => !todo.get('isComplete'));
 }
