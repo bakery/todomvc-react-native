@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { TOGGLE_TASK_COMPLETION, ADD_TASK } from './constants';
+import { TOGGLE_TASK_COMPLETION, ADD_TASK, DELETE_TASK } from './constants';
 
 const initialState = fromJS([
   { text:'t1', id: '1', isComplete: false },
@@ -28,6 +28,8 @@ function todos(state = initialState, action) {
         id: new Date().getTime().toString(),
         isComplete: false
       }));
+    case DELETE_TASK:
+      return state.filter(todo => todo.get('id') !== action.payload.id);
     default:
       return state;
   }

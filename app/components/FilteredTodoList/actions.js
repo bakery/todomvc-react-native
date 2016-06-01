@@ -7,6 +7,7 @@
 import {
   TOGGLE_TASK_COMPLETION,
   ADD_TASK,
+  DELETE_TASK,
 } from './constants';
 
 export function toggleTaskCompletion (id) {
@@ -23,6 +24,15 @@ export function addTask (text) {
     type: ADD_TASK,
     payload: {
       text,
+    }
+  };
+}
+
+export function deleteTask (id) {
+  return {
+    type: DELETE_TASK,
+    payload: {
+      id
     }
   };
 }

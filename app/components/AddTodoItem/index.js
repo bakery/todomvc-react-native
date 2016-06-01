@@ -28,12 +28,6 @@ class AddTodoItem extends Component {
     this.props.addTask(this.state.text);
     this._textBox.clear();
   }
-
-  // _onKeyDown (event) {
-  //   if (event.keyCode === 13) {
-  //     this.saveTodoItem();
-  //   }
-  // }
 }
 
 function mapDispatchToProps(dispatch) {
