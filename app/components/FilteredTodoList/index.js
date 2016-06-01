@@ -18,7 +18,7 @@ class FilteredTodoList extends Component {
   render() {
     return (
       <View style={ styles.container }>
-        <TodoList items={ this.props.todos } />
+        <TodoList todos={ this.props.todos } />
       </View>
     );
   }
