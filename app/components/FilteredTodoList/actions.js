@@ -6,6 +6,7 @@
 
 import {
   TOGGLE_TASK_COMPLETION,
+  ADD_TASK,
 } from './constants';
 
 export function toggleTaskCompletion (id) {
@@ -13,6 +14,15 @@ export function toggleTaskCompletion (id) {
     type: TOGGLE_TASK_COMPLETION,
     payload: {
       id,
+    }
+  };
+}
+
+export function addTask (text) {
+  return {
+    type: ADD_TASK,
+    payload: {
+      text,
     }
   };
 }

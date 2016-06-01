@@ -5,7 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { TOGGLE_TASK_COMPLETION } from './constants';
+import { TOGGLE_TASK_COMPLETION, ADD_TASK } from './constants';
 
 const initialState = fromJS([
   { text:'t1', id: '1', isComplete: false },
@@ -22,6 +22,12 @@ function todos(state = initialState, action) {
         return state.update(itemIndex, (i) => i.updateIn(['isComplete'], ic => !ic));
       }
       return state;
+    case ADD_TASK:
+      return state.push(fromJS({
+        text: action.payload.text,
+        id: new Date().getTime().toString(),
+        isComplete: false
+      }));
     default:
       return state;
   }
