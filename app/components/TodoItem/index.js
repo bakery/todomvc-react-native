@@ -4,11 +4,10 @@
  *
  */
 
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './styles';
-import ToggleCheck from '../ToggleCheck';
 import { toggleTaskCompletion, deleteTask } from '../FilteredTodoList/actions';
 import Swipeout from 'react-native-swipeout';
 
@@ -23,13 +22,26 @@ class TodoItem extends Component {
     }];
     return (
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
-        <View style={[styles.item, { opacity: this.props.todo.isComplete ? 0.5 : 1 }]}>
-          <ToggleCheck todo={this.props.todo}
-            onToggle={this.props.toggleCompletion}
-            style={ styles.checkButton } />
-          <Text style={ styles.label }>{this.props.todo.text}</Text>
-        </View>
+        <TouchableOpacity
+          underlayColor="transparent"
+          onPress={ () => this.props.toggleCompletion(this.props.todo.id) }
+          style={ styles.checkbox }>
+          <View style={[styles.item, { opacity: this.props.todo.isComplete ? 0.5 : 1 }]}>
+            {this._renderCheckbox()}
+            <Text style={ styles.label }>{this.props.todo.text}</Text>
+          </View>
+        </TouchableOpacity>
       </Swipeout>
+    );
+  }
+
+  _renderCheckbox() {
+    const imageModule = this.props.todo.isComplete ?
+      require('./images/checked.png') :
+      require('./images/unchecked.png');
+
+    return  (
+      <Image style={[styles.checkButton, styles.container]} source={imageModule} />
     );
   }
 }

@@ -13,5 +13,8 @@ export default StyleSheet.create({
     paddingBottom: 15,
     paddingTop: 1,
     marginLeft: 10
+  },
+  checkbox: {
+    marginLeft: 10
   }
 });
