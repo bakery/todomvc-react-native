@@ -4,13 +4,25 @@
  *
  */
 
-import  { NavigationExperimental } from 'react-native';
+import  { NavigationExperimental, Platform } from 'react-native';
 const { Reducer: NavigationReducer } = NavigationExperimental;
 
 const tabsDefinitions = [
-  { key: 'all', icon: require('./images/all.png'), title: 'All' },
-  { key: 'active', icon: require('./images/active.png'), title: 'Active' },
-  { key: 'completed', icon: require('./images/completed.png'), title: 'Completed' }
+  {
+    key: 'all',
+    icon: require('./images/all.png'),
+    title: Platform.select({ ios: 'All', android: 'All Tasks' })
+  },
+  {
+    key: 'active',
+    icon: require('./images/active.png'),
+    title: Platform.select({ ios: 'Active', android: 'Active Tasks' })
+  },
+  {
+    key: 'completed',
+    icon: require('./images/completed.png'),
+    title: Platform.select({ ios: 'Completed', android: 'Completed Tasks' })
+  }
 ];
 
 const _mainNavigation = NavigationReducer.TabsReducer({

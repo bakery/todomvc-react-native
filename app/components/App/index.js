@@ -4,7 +4,7 @@
  *
  */
 
-import { View, Text } from 'react-native';
+import { View, Text, Platform } from 'react-native';
 import React, { Component } from 'react';
 import styles from './styles';
 import MainNavigation from '../MainNavigation';
@@ -14,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <View style={ styles.container }>
-        <AddTodoItem />
+        { Platform.OS === 'ios' ? <AddTodoItem /> : null }
         <MainNavigation />
       </View>
     );
