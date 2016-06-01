@@ -61,5 +61,4 @@ See what the screen looks like - got nice icons and titles. Still no content
 # Add TodosList
 
 Create a generic todo list compoment - generate component called TodoList 
-
-
+Split into TodoItem and ToggleCheck

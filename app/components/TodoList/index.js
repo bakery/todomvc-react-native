@@ -13,14 +13,18 @@ class TodoList extends Component {
   render() {
     return (
       <View style={ styles.container }>
-        { this.props.items.map(todo => <TodoItem key={todo.id} text={todo.text} />) }
+        {
+          this.props.items.map(
+            todo => <TodoItem todo={todo} key={todo.get('id')} />
+          )
+        }
       </View>
     );
   }
 }
 
 TodoList.propTypes = {
-  items: PropTypes.array.isRequired
+  items: PropTypes.object.isRequired
 };
 
 export default TodoList;
