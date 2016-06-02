@@ -8,7 +8,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './styles';
-import { toggleTaskCompletion, deleteTask } from '../FilteredTodoList/actions';
+import { toggleTaskCompletion, deleteTask } from '../TodoList/actions';
 import Swipeout from 'react-native-swipeout';
 
 class TodoItem extends Component {

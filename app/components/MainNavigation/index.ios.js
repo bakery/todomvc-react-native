@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { selectMainNavigation } from './reducer';
 import { TabBarIOS, NavigationExperimental } from 'react-native';
-import FilteredTodoList from '../FilteredTodoList';
+import TodoList from '../TodoList';
 
 const { Reducer: NavigationReducer } = NavigationExperimental;
 const { JumpToAction } = NavigationReducer.TabsReducer;
@@ -42,7 +42,7 @@ class MainNavigation extends Component {
   _renderTabContent(tab) {
     return (
       <View style={ styles.container }>
-        <FilteredTodoList filter={tab.key} />
+        <TodoList filter={tab.key} />
       </View>
     );
   }

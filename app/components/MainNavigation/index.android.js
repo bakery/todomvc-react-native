@@ -14,7 +14,7 @@ import { selectMainNavigation } from './reducer';
 import { TouchableHighlight, NavigationExperimental } from 'react-native';
 import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import ToolbarAndroid from 'ToolbarAndroid';
-import FilteredTodoList from '../FilteredTodoList';
+import TodoList from '../TodoList';
 import AddTodoItem from '../AddTodoItem';
 
 const { Reducer: NavigationReducer } = NavigationExperimental;
@@ -62,15 +62,9 @@ class MainNavigation extends Component {
   }
 
   _renderTabContent(tab) {
-    // XX: replace this with code to render specific components/containers
-    // corresponding to tabs in your app, e.g.
-    // if (tab.key === 'maps') {
-    //   return <MapView />;
-    // }
-
     return (
       <View style={ styles.container }>
-        <FilteredTodoList filter={tab.key} />
+        <TodoList filter={tab.key} />
       </View>
     );
   }

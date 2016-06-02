@@ -1,4 +1,4 @@
-import todos from './components/FilteredTodoList/reducer';
+import todos from './components/TodoList/reducer';
 import mainNavigation from './components/MainNavigation/reducer';
 import { combineReducers } from 'redux-immutable';
 // XX: Do not rename this variable if you want reducer generator
