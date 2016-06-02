@@ -6,9 +6,7 @@
 
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './styles';
-import { toggleTaskCompletion, deleteTask } from '../TodoList/actions';
 import Swipeout from 'react-native-swipeout';
 
 class TodoItem extends Component {
@@ -17,7 +15,7 @@ class TodoItem extends Component {
       text: 'Delete',
       backgroundColor: 'red',
       onPress: () => {
-        this.props.deleteTask(this.props.todo.id);
+        this.props.onDelete(this.props.todo.id);
       }
     }];
     const viewCompletedStyling = this.props.todo.isComplete ? { opacity: 0.5 } : {};
@@ -27,7 +25,7 @@ class TodoItem extends Component {
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={ () => this.props.toggleCompletion(this.props.todo.id) }
+          onPress={ () => this.props.onToggleCompletion(this.props.todo.id) }
           style={ styles.checkbox }>
           <View style={[styles.item, viewCompletedStyling]}>
             {this._renderCheckbox()}
@@ -50,19 +48,9 @@ class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired
+  todo: PropTypes.object.isRequired,
+  onToggleCompletion: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    toggleCompletion (id) {
-      dispatch(toggleTaskCompletion(id));
-    },
-    deleteTask (id) {
-      dispatch(deleteTask(id));
-    }
-  };
-}
-
-export default connect(() => ({}), mapDispatchToProps)(TodoItem);
+export default TodoItem;

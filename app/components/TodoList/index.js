@@ -11,7 +11,7 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { selectAllTodos, selectActiveTodos, selectCompletedTodos } from './reducer';
-
+import { toggleTaskCompletion, deleteTask } from './actions';
 import NoTodos from '../NoTodos';
 import TodoItem from '../TodoItem';
 
@@ -28,7 +28,8 @@ class TodoList extends Component {
     if (this.props.todos.size !== 0) {
       var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
       return (
-        <ListView dataSource={ds.cloneWithRows(this.props.todos.toJS())} renderRow={this._renderRow} />
+        <ListView dataSource={ds.cloneWithRows(this.props.todos.toJS())}
+          renderRow={this._renderRow.bind(this)} />
       );
     } else {
       return (
@@ -39,7 +40,10 @@ class TodoList extends Component {
 
   _renderRow (todo) {
     return (
-      <TodoItem todo={todo} key={todo.id} />
+      <TodoItem todo={todo}
+        key={todo.id}
+        onDelete={this.props.deleteTask}
+        onToggleCompletion={this.props.toggleCompletion} />
     );
   }
 }
@@ -52,6 +56,12 @@ TodoList.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    toggleCompletion (id) {
+      dispatch(toggleTaskCompletion(id));
+    },
+    deleteTask (id) {
+      dispatch(deleteTask(id));
+    }
   };
 }
 
