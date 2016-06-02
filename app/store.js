@@ -4,8 +4,12 @@ import createReducer from './reducers';
 import devTools from 'remote-redux-devtools';
 
 function configureStore(initialState = fromJS({})) {
-  const createStoreWithMiddleware = compose(devTools())(createStore);
-  return createStoreWithMiddleware(createReducer(), initialState);
+  if (__DEV__) {
+    const createStoreWithMiddleware = compose(devTools())(createStore);
+    return createStoreWithMiddleware(createReducer(), initialState);
+  } else {
+    return createStore(createReducer(), initialState);
+  }
 }
 
 module.exports = configureStore;
