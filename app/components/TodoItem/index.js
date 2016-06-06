@@ -28,7 +28,9 @@ class TodoItem extends Component {
           onPress={ () => this.props.onToggleCompletion(this.props.todo.id) }>
           <View style={[styles.item, viewCompletedStyling]}>
             {this._renderCheckbox()}
-            <Text style={[styles.label, labelCompletedStyling]}>{this.props.todo.text}</Text>
+            <View style={styles.labelWrapper}>
+              <Text style={[styles.label, labelCompletedStyling]}>{this.props.todo.text}</Text>
+            </View>
           </View>
         </TouchableOpacity>
       </Swipeout>

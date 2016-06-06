@@ -8,6 +8,11 @@ export default StyleSheet.create({
     paddingTop: 15,
     paddingRight: 60
   },
+  labelWrapper: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start'
+  },
   label: {
     fontSize: 24,
     paddingBottom: 15,
