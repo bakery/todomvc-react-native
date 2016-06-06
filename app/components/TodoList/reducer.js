@@ -8,10 +8,9 @@ import { fromJS } from 'immutable';
 import { TOGGLE_TASK_COMPLETION, ADD_TASK, DELETE_TASK } from './constants';
 
 const initialState = fromJS([
-  { text:'t1', id: '1', isComplete: false },
-  { text:'t2', id: '2', isComplete: false  },
-  { text:'t3', id:'3', isComplete: true  },
-  { text:'t4', id:'4', isComplete: false  }
+  { text:'Buy milk', id: '1', isComplete: false },
+  { text:'Drink milk', id: '2', isComplete: false  },
+  { text:'Repeat', id:'3', isComplete: false  }
 ]);
 
 function todos(state = initialState, action) {
