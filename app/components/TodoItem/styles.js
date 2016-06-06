@@ -6,7 +6,7 @@ export default StyleSheet.create({
     borderBottomColor: '#ededed',
     flexDirection: 'row',
     paddingTop: 15,
-    paddingRight: 60,
+    paddingRight: 60
   },
   label: {
     fontSize: 24,
@@ -15,6 +15,7 @@ export default StyleSheet.create({
     marginLeft: 10
   },
   checkbox: {
-    marginLeft: 10
+    marginLeft: 10,
+    marginTop: 3
   }
 });

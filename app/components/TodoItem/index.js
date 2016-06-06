@@ -25,8 +25,7 @@ class TodoItem extends Component {
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={ () => this.props.onToggleCompletion(this.props.todo.id) }
-          style={ styles.checkbox }>
+          onPress={ () => this.props.onToggleCompletion(this.props.todo.id) }>
           <View style={[styles.item, viewCompletedStyling]}>
             {this._renderCheckbox()}
             <Text style={[styles.label, labelCompletedStyling]}>{this.props.todo.text}</Text>
@@ -42,7 +41,7 @@ class TodoItem extends Component {
       require('./images/unchecked.png');
 
     return  (
-      <Image style={[styles.checkButton, styles.container]} source={imageModule} />
+      <Image style={[styles.checkbox]} source={imageModule} />
     );
   }
 }
