@@ -1,5 +1,5 @@
 {
-  "name": "baker",
+  "name": "Todos",
   "version": "1.0.0",
   "description": "React Native app powered by Baker",
   "author": "",
@@ -16,7 +16,7 @@
   "dependencies": {
     "generator-rn": "^0.1.2",
     "react": "^15.1.0",
-    "react-native": "^0.27.0-rc2",
+    "react-native": "^0.27.0",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
