@@ -6,7 +6,7 @@ var supportedCommands = ['generate','generate:app'];
 function runCommand() {
   if (argv._.length !== 0) {
     var command = argv._[0];
-    
+
     if (supportedCommands.indexOf(command) === -1) {
       return;
     }

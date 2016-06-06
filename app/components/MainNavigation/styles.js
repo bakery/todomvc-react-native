@@ -22,7 +22,5 @@ export default StyleSheet.create({
   label: {
     fontSize: 24,
     marginLeft: 10
-    //paddingBottom: 15,
-    //paddingTop: 15
   }
 });
