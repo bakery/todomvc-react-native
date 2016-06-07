@@ -15,16 +15,13 @@
     "node": ">=4.3"
   },
   "dependencies": {
-    "generator-rn": "^0.1.2",
     "react": "^15.1.0",
     "react-native": "^0.27.0",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-immutable": "^3.0.6",
-    "reselect": "^2.4.0",
-    "yeoman-environment": "^1.6.1",
-    "yeoman-generator": "^0.21.2"
+    "reselect": "^2.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
@@ -32,7 +29,10 @@
     "eslint": "^2.8.0",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-react": "^4.3.0",
+    "generator-rn": "^0.1.2",
     "minimist": "^1.2.0",
-    "remote-redux-devtools": "^0.1.6"
+    "remote-redux-devtools": "^0.1.6",
+    "yeoman-environment": "^1.6.1",
+    "yeoman-generator": "^0.21.2"
   }
 }
