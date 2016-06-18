@@ -8,7 +8,14 @@ import {
   TOGGLE_TASK_COMPLETION,
   ADD_TASK,
   DELETE_TASK,
+  LOAD_TASKS_REQUEST,
 } from './constants';
+
+export function loadTasks () {
+  return {
+    type: LOAD_TASKS_REQUEST
+  };
+}
 
 export function toggleTaskCompletion (id) {
   return {

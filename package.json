@@ -21,6 +21,8 @@
     "express": "^4.13.4",
     "express-graphql": "^0.5.3",
     "graphql": "^0.6.0",
+    "lokka": "^1.7.0",
+    "lokka-transport-http": "^1.4.0",
     "parse-dashboard": "^1.0.13",
     "parse-server": "^2.2.11",
     "react": "^15.1.0",
@@ -29,6 +31,7 @@
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-immutable": "^3.0.6",
+    "redux-saga": "^0.10.5",
     "reselect": "^2.4.0"
   },
   "devDependencies": {
