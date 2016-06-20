@@ -11,8 +11,8 @@
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "build:ios": "node ./node_modules/react-native/local-cli/cli.js bundle --platform ios --entry-file index.ios.js --bundle-output ios/Todos/main.jsbundle --dev=false --minify --verbose",
     "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner",
-    "server": "npm run mongo && babel-watch ./server --presets es2015 --watch ./server/**/*.js",
-    "server-debug": "npm run mongo && babel-node ./server --presets es2015 --debug"
+    "server": "npm run mongo && babel-watch ./server --watch ./server/**/*.js",
+    "server-debug": "npm run mongo && babel-node ./server --debug"
   },
   "engines": {
     "node": ">=4.3"
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^6.0.2",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-2": "^6.5.0",
