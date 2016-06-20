@@ -1,20 +1,23 @@
 /*
  *
- * FilteredTodoList reducer
+ * TodoList reducer
  *
  */
 
 import { fromJS } from 'immutable';
-import { TOGGLE_TASK_COMPLETION, ADD_TASK, DELETE_TASK } from './constants';
+import {
+  TOGGLE_TASK_COMPLETION,
+  ADD_TASK,
+  DELETE_TASK,
+  LOAD_TASKS_SUCCESS,
+} from './constants';
 
-const initialState = fromJS([
-  { text:'Buy milk', id: '1', isComplete: false },
-  { text:'Drink milk', id: '2', isComplete: false  },
-  { text:'Repeat', id:'3', isComplete: false  }
-]);
+const initialState = fromJS([]);
 
 function todos(state = initialState, action) {
   switch (action.type) {
+    case LOAD_TASKS_SUCCESS:
+      return fromJS(action.payload.todos);
     case TOGGLE_TASK_COMPLETION:
       const itemIndex = state.findIndex( i => i.get('id') === action.payload.id);
       if (itemIndex !== -1) {
