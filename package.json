@@ -11,7 +11,8 @@
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "build:ios": "node ./node_modules/react-native/local-cli/cli.js bundle --platform ios --entry-file index.ios.js --bundle-output ios/Todos/main.jsbundle --dev=false --minify --verbose",
     "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner",
-    "server": "npm run mongo && babel-watch ./server --presets es2015 --watch ./server/**/*.js"
+    "server": "npm run mongo && babel-watch ./server --presets es2015 --watch ./server/**/*.js",
+    "server-debug": "npm run mongo && babel-node ./server --presets es2015 --debug"
   },
   "engines": {
     "node": ">=4.3"
