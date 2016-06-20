@@ -37,10 +37,13 @@ Todo.Mutations = {
     },
     resolve: (_, { text }, user) => {
       console.log('adding todo as', user);
-      return new Todo({
+      const newTodo = new Todo({
         text,
         isComplete: false
-      }).save();
+      });
+      newTodo.setACL(new Parse.ACL(user));
+
+      return newTodo.save();
     }
   },
   deleteTodo: {
