@@ -22,12 +22,18 @@ Parse.serverURL = `http://localhost:${SERVER_PORT}/parse`;
 Parse.masterKey = MASTER_KEY;
 Parse.Cloud.useMasterKey();
 
+Parse.graphqlHTTP = graphqlHTTP(request => ({
+  schema: schema,
+  graphiql: true,
+  context: request.user,
+}));
 
 var api = new ParseServer({
   databaseURI: DATABASE_URI,
   cloud: path.resolve(__dirname, 'cloud/index.js'),
   appId: APP_ID,
   masterKey: MASTER_KEY,
+  clientKey: 'js-key',
   fileKey: 'optionalFileKey',
   serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`
 });
@@ -48,10 +54,10 @@ app.use(
   }, IS_DEVELOPMENT)
 );
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  graphiql: true
-}));
+// app.use('/graphql', graphqlHTTP({
+//   schema: schema,
+//   graphiql: true
+// }));
 
 app.listen(SERVER_PORT, function() {
   console.log(`parse-server-example running on port ${SERVER_PORT}`);

@@ -6,6 +6,7 @@ import { deleteTodo as _deleteTodo } from '../api/todos';
 function* runDeleteTodo(action) {
   console.log('@@ deleting todo');
   try {
+    // yield call()
     const response = yield call(_deleteTodo, action.payload.id);
     console.log('@@ deleted todo', response);
     // yield put({

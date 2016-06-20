@@ -16,7 +16,8 @@ const schema = new GraphQLSchema({
         args: {
           isComplete: { type: GraphQLBoolean }
         },
-        resolve: (_, args) => {
+        resolve: (_, args, user) => {
+          console.log('resolving query with', user);
           const isComplete = args.isComplete;
           const query = new Parse.Query(Todo);
           if (typeof isComplete !== 'undefined') {

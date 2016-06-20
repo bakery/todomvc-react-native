@@ -35,7 +35,8 @@ Todo.Mutations = {
     args: {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { text }) => {
+    resolve: (_, { text }, user) => {
+      console.log('adding todo as', user);
       return new Todo({
         text,
         isComplete: false
@@ -48,7 +49,8 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }) => {
+    resolve: (_, { id }, user) => {
+      console.log('deleting todo as', user);
       const result = new Parse.Promise();
       new Parse.Query(Todo).get(id).then((todo) => {
         if (todo) {
@@ -64,7 +66,8 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }) => {
+    resolve: (_, { id }, user) => {
+      console.log('toggling todo as', user);
       const result = new Parse.Promise();
       new Parse.Query(Todo).get(id).then((todo) => {
         if (todo) {
