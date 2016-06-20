@@ -17,8 +17,12 @@ const schema = new GraphQLSchema({
           isComplete: { type: GraphQLBoolean }
         },
         resolve: (_, args) => {
-          const isComplete = typeof args.isComplete !== 'undefined' ? args.isComplete : false;
-          return new Parse.Query(Todo).equalTo('isComplete', isComplete).find();
+          const isComplete = args.isComplete;
+          const query = new Parse.Query(Todo);
+          if (typeof isComplete !== 'undefined') {
+            query.equalTo('isComplete', isComplete);
+          }
+          return query.find();
         }
       }
     }
