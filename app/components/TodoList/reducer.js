@@ -25,32 +25,44 @@ function todos(state = initialState, action) {
   switch (action.type) {
     case LOAD_TASKS_ERROR:
       return state.set('error', action.payload.error);
+
     case LOAD_TASKS_SUCCESS:
       return state.set('items', fromJS(action.payload.todos)).set('error', null);
+
     case TOGGLE_TASK_COMPLETION_REQUEST:
       return state.updateIn(['items'], items => {
         const itemIndex = items.findIndex( i => i.get('id') === action.payload.id);
         if (itemIndex !== -1) {
-          return items.update(itemIndex, (i) => i.updateIn(['isComplete'], ic => !ic));
+          return items.update(itemIndex, (i) => {
+            return i.updateIn(['isComplete'], ic => !ic)
+              .updateIn(['isDisabled'], id => true);
+          });
         }
         return items;
       });
+
     case ADD_TASK_REQUEST:
       return state.updateIn(['items'], items => {
         return items.push(fromJS(action.payload));
       });
+
     case ADD_TASK_SUCCESS:
       return state.updateIn(['items'], items => {
         const itemIndex = items.findIndex( i => i.get('id') === action.payload.clientId);
         if (itemIndex !== -1) {
-          return items.update(itemIndex, (i) => i.updateIn(['id'], ic => action.payload.todo.id));
+          return items.update(itemIndex, (i) => {
+            return i.updateIn(['id'], ic => action.payload.todo.id)
+              .updateIn(['isDisabled'], id => false);
+          });
         }
         return items;
       });
+
     case DELETE_TASK_REQUEST:
       return state.updateIn(['items'], items => {
         return items.filter(todo => todo.get('id') !== action.payload.id);
       });
+
     default:
       return state;
   }

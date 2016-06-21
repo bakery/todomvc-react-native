@@ -32,7 +32,8 @@ export function addTask (text) {
     payload: {
       text,
       id: new Date().getTime().toString(),
-      isComplete: false
+      isComplete: false,
+      isDisabled: true
     }
   };
 }
