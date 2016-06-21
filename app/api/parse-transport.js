@@ -44,7 +44,7 @@ export class Transport extends LokkaTransport {
       };
       const options = this._buildOptions(payload);
 
-      fetch(this.endpoint, options).then(response => {
+      return fetch(this.endpoint, options).then(response => {
         // 200 is for success
         // 400 is for bad request
         if (response.status !== 200 && response.status !== 400) {

@@ -1,6 +1,10 @@
 import { takeEvery } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
-import { TOGGLE_TASK_COMPLETION } from '../components/TodoList/constants';
+import {
+  TOGGLE_TASK_COMPLETION_REQUEST,
+  TOGGLE_TASK_COMPLETION_SUCCESS,
+  TOGGLE_TASK_COMPLETION_ERROR,
+} from '../components/TodoList/constants';
 import { toggleTodoCompletion as _toggleTodoCompletion } from '../api/todos';
 
 function* runToggleTodoCompletion(action) {
@@ -27,5 +31,5 @@ function* runToggleTodoCompletion(action) {
 
 export function* toggleTodoCompletion() {
   console.log('@@@ running todos saga');
-  yield* takeEvery(TOGGLE_TASK_COMPLETION, runToggleTodoCompletion);
+  yield* takeEvery(TOGGLE_TASK_COMPLETION_REQUEST, runToggleTodoCompletion);
 }

@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
-import { DELETE_TASK } from '../components/TodoList/constants';
+import { DELETE_TASK_REQUEST } from '../components/TodoList/constants';
 import { deleteTodo as _deleteTodo } from '../api/todos';
 
 function* runDeleteTodo(action) {
@@ -27,5 +27,5 @@ function* runDeleteTodo(action) {
 }
 
 export function* deleteTodo() {
-  yield* takeEvery(DELETE_TASK, runDeleteTodo);
+  yield* takeEvery(DELETE_TASK_REQUEST, runDeleteTodo);
 }

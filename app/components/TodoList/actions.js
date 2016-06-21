@@ -5,9 +5,9 @@
  */
 
 import {
-  TOGGLE_TASK_COMPLETION,
-  ADD_TASK,
-  DELETE_TASK,
+  TOGGLE_TASK_COMPLETION_REQUEST,
+  ADD_TASK_REQUEST,
+  DELETE_TASK_REQUEST,
   LOAD_TASKS_REQUEST,
 } from './constants';
 
@@ -19,7 +19,7 @@ export function loadTasks () {
 
 export function toggleTaskCompletion (id) {
   return {
-    type: TOGGLE_TASK_COMPLETION,
+    type: TOGGLE_TASK_COMPLETION_REQUEST,
     payload: {
       id,
     }
@@ -28,16 +28,18 @@ export function toggleTaskCompletion (id) {
 
 export function addTask (text) {
   return {
-    type: ADD_TASK,
+    type: ADD_TASK_REQUEST,
     payload: {
       text,
+      id: new Date().getTime().toString(),
+      isComplete: false
     }
   };
 }
 
 export function deleteTask (id) {
   return {
-    type: DELETE_TASK,
+    type: DELETE_TASK_REQUEST,
     payload: {
       id
     }
