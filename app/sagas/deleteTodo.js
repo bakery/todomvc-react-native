@@ -1,28 +1,19 @@
 import { takeEvery } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
-import { DELETE_TASK_REQUEST } from '../components/TodoList/constants';
+import { DELETE_TASK_REQUEST, DELETE_TASK_ERROR } from '../components/TodoList/constants';
 import { deleteTodo as _deleteTodo } from '../api/todos';
 
 function* runDeleteTodo(action) {
-  console.log('@@ deleting todo');
   try {
-    // yield call()
-    const response = yield call(_deleteTodo, action.payload.id);
-    console.log('@@ deleted todo', response);
-    // yield put({
-    //   type: LOAD_TASKS_SUCCESS,
-    //   payload: {
-    //     todos: response.todos,
-    //   }
-    // });
+    yield call(_deleteTodo, action.payload.id);
   } catch (error) {
-    console.error(error);
-    // yield put({
-    //   type: LOAD_TASKS_ERROR,
-    //   payload: {
-    //     error,
-    //   }
-    // });
+    yield put({
+      type: DELETE_TASK_ERROR,
+      payload: {
+        error,
+        id: action.payload.id
+      }
+    });
   }
 }
 

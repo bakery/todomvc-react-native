@@ -2,34 +2,25 @@ import { takeEvery } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
 import {
   TOGGLE_TASK_COMPLETION_REQUEST,
-  TOGGLE_TASK_COMPLETION_SUCCESS,
   TOGGLE_TASK_COMPLETION_ERROR,
 } from '../components/TodoList/constants';
 import { toggleTodoCompletion as _toggleTodoCompletion } from '../api/todos';
 
 function* runToggleTodoCompletion(action) {
-  console.log('@@ toggling todo');
   try {
-    const response = yield call(_toggleTodoCompletion, action.payload.id);
-    console.log('@@ toggled todo', response);
-    // yield put({
-    //   type: LOAD_TASKS_SUCCESS,
-    //   payload: {
-    //     todos: response.todos,
-    //   }
-    // });
+    yield call(_toggleTodoCompletion, action.payload.id);
   } catch (error) {
     console.error(error);
-    // yield put({
-    //   type: LOAD_TASKS_ERROR,
-    //   payload: {
-    //     error,
-    //   }
-    // });
+    yield put({
+      type: TOGGLE_TASK_COMPLETION_ERROR,
+      payload: {
+        error,
+        id: action.payload.id
+      }
+    });
   }
 }
 
 export function* toggleTodoCompletion() {
-  console.log('@@@ running todos saga');
   yield* takeEvery(TOGGLE_TASK_COMPLETION_REQUEST, runToggleTodoCompletion);
 }

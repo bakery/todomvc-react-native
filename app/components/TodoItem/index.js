@@ -22,11 +22,18 @@ class TodoItem extends Component {
     const { todo } = this.props;
     const viewDisabledStyling = todo.isComplete || todo.isDisabled ? { opacity: 0.5 } : {};
     const labelCompletedStyling = todo.isComplete ? { textDecorationLine: 'line-through' } : {};
+    const error = todo.error ? (
+      <View style={styles.errorWrapper}>
+        <Image style={styles.errorIcon} source={require('./images/error.png')}/>
+        <Text style={styles.errorLabel}>{todo.error}</Text>
+      </View>
+    ) : null;
     const item = (
       <View style={[styles.item, viewDisabledStyling]}>
         {this._renderCheckbox()}
         <View style={styles.labelWrapper}>
           <Text style={[styles.label, labelCompletedStyling]}>{todo.text}</Text>
+          {error}
         </View>
       </View>
     );

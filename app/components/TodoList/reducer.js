@@ -10,6 +10,7 @@ import {
   TOGGLE_TASK_COMPLETION_SUCCESS,
   TOGGLE_TASK_COMPLETION_ERROR,
   ADD_TASK_REQUEST,
+  ADD_TASK_ERROR,
   ADD_TASK_SUCCESS,
   DELETE_TASK_REQUEST,
   LOAD_TASKS_SUCCESS,
@@ -53,6 +54,17 @@ function todos(state = initialState, action) {
           return items.update(itemIndex, (i) => {
             return i.updateIn(['id'], ic => action.payload.todo.id)
               .updateIn(['isDisabled'], id => false);
+          });
+        }
+        return items;
+      });
+
+    case ADD_TASK_ERROR:
+      return state.updateIn(['items'], items => {
+        const itemIndex = items.findIndex( i => i.get('id') === action.payload.clientId);
+        if (itemIndex !== -1) {
+          return items.update(itemIndex, (i) => {
+            return i.set('error', 'Failed to add task').set('isDisabled', false);
           });
         }
         return items;

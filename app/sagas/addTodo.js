@@ -8,10 +8,8 @@ import {
 import { addTodo as _addTodo } from '../api/todos';
 
 function* runAddTodo(action) {
-  console.log('@@ adding todo');
   try {
     const response = yield call(_addTodo, action.payload.text);
-    console.log('@@ added todo', response);
     yield put({
       type: ADD_TASK_SUCCESS,
       payload: {
@@ -20,17 +18,16 @@ function* runAddTodo(action) {
       }
     });
   } catch (error) {
-    console.error(error);
-    // yield put({
-    //   type: LOAD_TASKS_ERROR,
-    //   payload: {
-    //     error,
-    //   }
-    // });
+    yield put({
+      type: ADD_TASK_ERROR,
+      payload: {
+        error: 'dfsdf',
+        clientId: action.payload.id
+      }
+    });
   }
 }
 
 export function* addTodo() {
-  console.log('@@@ running todos saga');
   yield* takeEvery(ADD_TASK_REQUEST, runAddTodo);
 }
