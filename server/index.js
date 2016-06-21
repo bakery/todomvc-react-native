@@ -54,7 +54,8 @@ app.use('/graphql', jsonParser, graphqlHTTP(request => {
   const sessionToken = request.body && request.body.sessionToken;
   const baseOps = {
     schema: schema,
-    graphiql: true
+    graphiql: true,
+    context: {}
   };
 
   if (!sessionToken) {
