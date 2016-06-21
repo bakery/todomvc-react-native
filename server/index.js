@@ -68,7 +68,7 @@ app.use('/graphql', jsonParser, graphqlHTTP(request => {
     }).then(user => {
       if (user) {
         return Object.assign(baseOps, {
-          context: user
+          context: { user, sessionToken }
         });
       } else {
         return baseOps;

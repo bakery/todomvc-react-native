@@ -9,6 +9,12 @@ import {
 
 let Todo = Parse.Object.extend('Todo');
 
+const authenticate = (sessionToken) => {
+  const options = sessionToken ? { sessionToken} : {};
+  console.log('@@ authenticate', options);
+  return options;
+};
+
 const TodoType = new GraphQLObjectType({
   name: 'Todo',
   description: 'Item in todo list',
@@ -35,15 +41,14 @@ Todo.Mutations = {
     args: {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { text }, user) => {
+    resolve: (_, { text }, { user, sessionToken }) => {
       console.log('adding todo as', user);
-      const newTodo = new Todo({
-        text,
-        isComplete: false
-      });
+      const newTodo = new Todo({ text, isComplete: false });
       newTodo.setACL(new Parse.ACL(user));
-
-      return newTodo.save();
+      return newTodo.save().then( td => {
+        console.log('@@@ added todo', td);
+        return td;
+      });
     }
   },
   deleteTodo: {
@@ -52,15 +57,15 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, user) => {
+    resolve: (_, { id }, { user, sessionToken }) => {
       console.log('deleting todo as', user);
-      const result = new Parse.Promise();
-      new Parse.Query(Todo).get(id).then((todo) => {
+      return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
         if (todo) {
-          todo.destroy().then(t => result.resolve(t));
+          return todo.destroy(authenticate(sessionToken)); //.then(t => result.resolve(t));
         }
+
+        return todo;
       });
-      return result;
     }
   },
   toggleTodoCompletion: {
@@ -69,17 +74,18 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, user) => {
-      console.log('toggling todo as', user);
-      const result = new Parse.Promise();
-      new Parse.Query(Todo).get(id).then((todo) => {
+    resolve: (_, { id }, { user, sessionToken }) => {
+      console.log(`toggling todo ${id} as`, user);
+      return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
+        console.log('@@ toggle', todo);
         if (todo) {
-          todo.save({
+          return todo.save({
             isComplete: !todo.get('isComplete')
-          }).then(t => result.resolve(t));
+          }, authenticate(sessionToken)).then(
+            t => t, error => console.error('@@ error toggling', error)
+          );
         }
-      });
-      return result;
+      }, error => console.error('@@ error fetching todo', error));
     }
   }
 };

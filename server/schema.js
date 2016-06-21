@@ -16,7 +16,7 @@ const schema = new GraphQLSchema({
         args: {
           isComplete: { type: GraphQLBoolean }
         },
-        resolve: (_, args, user) => {
+        resolve: (_, args, { user, sessionToken }) => {
           console.log('resolving query with', user);
           const isComplete = args.isComplete;
           const query = new Parse.Query(Todo);
