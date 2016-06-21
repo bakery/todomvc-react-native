@@ -2,7 +2,6 @@ require('dotenv').config();
 
 import express from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
 import { ParseServer } from 'parse-server';
 import Parse from 'parse/node';
 import ParseDashboard from 'parse-dashboard';
@@ -13,25 +12,18 @@ const app = express();
 const jsonParser = bodyParser.json();
 
 const IS_DEVELOPMENT = process.env.IS_DEVELOPMENT;
-const SERVER_PORT = process.env.SERVER_PORT;
-const SERVER_HOST = process.env.SERVER_HOST;
-const APP_ID = process.env.APP_ID;
-const MASTER_KEY = process.env.MASTER_KEY;
-const DATABASE_URI = process.env.DATABASE_URI;
+const SERVER_PORT = process.env.PORT;
+const APP_ID = process.env.PARSE_SERVER_APPLICATION_ID;
+const MASTER_KEY = process.env.PARSE_SERVER_MASTER_KEY;
+const SERVER_URL = process.env.PARSE_SERVER_URL;
 
-Parse.initialize(process.env.APP_ID, 'js-key', MASTER_KEY);
-Parse.serverURL = `http://localhost:${SERVER_PORT}/parse`;
-Parse.masterKey = MASTER_KEY;
-Parse.Cloud.useMasterKey();
+Parse.initialize(APP_ID, 'js-key', MASTER_KEY);
+Parse.serverURL = SERVER_URL;
 
-var api = new ParseServer({
-  databaseURI: DATABASE_URI,
-  cloud: path.resolve(__dirname, 'cloud/index.js'),
+const api = new ParseServer({
   appId: APP_ID,
   masterKey: MASTER_KEY,
-  clientKey: 'js-key',
-  fileKey: 'optionalFileKey',
-  serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`
+  serverURL: SERVER_URL,
 });
 
 // Serve the Parse API on the /parse URL prefix
