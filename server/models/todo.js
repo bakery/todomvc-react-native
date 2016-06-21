@@ -11,7 +11,6 @@ let Todo = Parse.Object.extend('Todo');
 
 const authenticate = (sessionToken) => {
   const options = sessionToken ? { sessionToken} : {};
-  console.log('@@ authenticate', options);
   return options;
 };
 
@@ -42,13 +41,9 @@ Todo.Mutations = {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: (_, { text }, { user, sessionToken }) => {
-      console.log('adding todo as', user);
       const newTodo = new Todo({ text, isComplete: false });
       newTodo.setACL(new Parse.ACL(user));
-      return newTodo.save().then( td => {
-        console.log('@@@ added todo', td);
-        return td;
-      });
+      return newTodo.save().then( td => td);
     }
   },
   deleteTodo: {
@@ -58,10 +53,9 @@ Todo.Mutations = {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
     resolve: (_, { id }, { user, sessionToken }) => {
-      console.log('deleting todo as', user);
       return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
         if (todo) {
-          return todo.destroy(authenticate(sessionToken)); //.then(t => result.resolve(t));
+          return todo.destroy(authenticate(sessionToken));
         }
 
         return todo;
@@ -75,7 +69,6 @@ Todo.Mutations = {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
     resolve: (_, { id }, { user, sessionToken }) => {
-      console.log(`toggling todo ${id} as`, user);
       return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
         console.log('@@ toggle', todo);
         if (todo) {
@@ -85,7 +78,7 @@ Todo.Mutations = {
             t => t, error => console.error('@@ error toggling', error)
           );
         }
-      }, error => console.error('@@ error fetching todo', error));
+      });
     }
   }
 };
