@@ -22,6 +22,16 @@ const initialState = fromJS({
   items: [],
 });
 
+const updateTodoItem = (state, id, predicate) => {
+  return state.updateIn(['items'], items => {
+    const itemIndex = items.findIndex( i => i.get('id') === id);
+    if (itemIndex !== -1) {
+      return items.update(itemIndex, i => predicate(i));
+    }
+    return items;
+  });
+};
+
 function todos(state = initialState, action) {
   switch (action.type) {
     case LOAD_TASKS_ERROR:
@@ -31,15 +41,13 @@ function todos(state = initialState, action) {
       return state.set('items', fromJS(action.payload.todos)).set('error', null);
 
     case TOGGLE_TASK_COMPLETION_REQUEST:
-      return state.updateIn(['items'], items => {
-        const itemIndex = items.findIndex( i => i.get('id') === action.payload.id);
-        if (itemIndex !== -1) {
-          return items.update(itemIndex, (i) => {
-            return i.updateIn(['isComplete'], ic => !ic)
-              .updateIn(['isDisabled'], id => true);
-          });
-        }
-        return items;
+      return updateTodoItem(state, action.payload.id, (item) => {
+        return item.updateIn(['isComplete'], ic => !ic).set('isDisabled', true);
+      });
+
+    case TOGGLE_TASK_COMPLETION_SUCCESS:
+      return updateTodoItem(state, action.payload.id, (item) => {
+        return item.set('isDisabled', false);
       });
 
     case ADD_TASK_REQUEST:
@@ -48,26 +56,14 @@ function todos(state = initialState, action) {
       });
 
     case ADD_TASK_SUCCESS:
-      return state.updateIn(['items'], items => {
-        const itemIndex = items.findIndex( i => i.get('id') === action.payload.clientId);
-        if (itemIndex !== -1) {
-          return items.update(itemIndex, (i) => {
-            return i.updateIn(['id'], ic => action.payload.todo.id)
-              .updateIn(['isDisabled'], id => false);
-          });
-        }
-        return items;
+      return updateTodoItem(state, action.payload.clientId, (item) => {
+        return item.set('id', action.payload.todo.id).set('isDisabled', false);
       });
 
+    case TOGGLE_TASK_COMPLETION_ERROR:
     case ADD_TASK_ERROR:
-      return state.updateIn(['items'], items => {
-        const itemIndex = items.findIndex( i => i.get('id') === action.payload.clientId);
-        if (itemIndex !== -1) {
-          return items.update(itemIndex, (i) => {
-            return i.set('error', 'Failed to add task').set('isDisabled', false);
-          });
-        }
-        return items;
+      return updateTodoItem(state, action.payload.id, (item) => {
+        return item.set('error', 'Oops. Something went wrong.').set('isDisabled', false);
       });
 
     case DELETE_TASK_REQUEST:
