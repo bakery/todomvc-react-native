@@ -21,7 +21,7 @@ function* runAddTodo(action) {
     yield put({
       type: ADD_TASK_ERROR,
       payload: {
-        error: 'dfsdf',
+        error,
         clientId: action.payload.id
       }
     });
