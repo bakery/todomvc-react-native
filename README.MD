@@ -10,6 +10,17 @@
 ```sh
 git clone https://github.com/thebakeryio/todomvc-react-native.git
 cd todomvc-react-native && npm install
+```
+
+To run the server
+
+```sh
+npm run server
+```
+
+To run app on iOS/Android emulator
+
+```sh
 npm run ios
 npm run android
 ```

@@ -9,6 +9,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './styles';
 import Swipeout from 'react-native-swipeout';
 
+
 class TodoItem extends Component {
   render() {
     const swipeoutBtns = [{
@@ -18,20 +19,36 @@ class TodoItem extends Component {
         this.props.onDelete(this.props.todo.id);
       }
     }];
-    const viewCompletedStyling = this.props.todo.isComplete ? { opacity: 0.5 } : {};
-    const labelCompletedStyling = this.props.todo.isComplete ? { textDecorationLine: 'line-through' } : {};
+    const { todo } = this.props;
+    const viewDisabledStyling = todo.isComplete || todo.isDisabled ? { opacity: 0.5 } : {};
+    const labelCompletedStyling = todo.isComplete ? { textDecorationLine: 'line-through' } : {};
+    const error = todo.error ? (
+      <View style={styles.errorWrapper}>
+        <Image style={styles.errorIcon} source={require('./images/error.png')}/>
+        <Text style={styles.errorLabel}>{todo.error}</Text>
+      </View>
+    ) : null;
+    const item = (
+      <View style={[styles.item, viewDisabledStyling]}>
+        {this._renderCheckbox()}
+        <View style={styles.labelWrapper}>
+          <Text style={[styles.label, labelCompletedStyling]}>{todo.text}</Text>
+          {error}
+        </View>
+      </View>
+    );
+
+
+    if (todo.isDisabled) {
+      return item;
+    }
 
     return (
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={ () => this.props.onToggleCompletion(this.props.todo.id) }>
-          <View style={[styles.item, viewCompletedStyling]}>
-            {this._renderCheckbox()}
-            <View style={styles.labelWrapper}>
-              <Text style={[styles.label, labelCompletedStyling]}>{this.props.todo.text}</Text>
-            </View>
-          </View>
+          onPress={ () => this.props.onToggleCompletion(todo.id) }>
+          {item}
         </TouchableOpacity>
       </Swipeout>
     );
