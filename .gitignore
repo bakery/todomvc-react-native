@@ -40,4 +40,4 @@ android/app/libs
 android/keystores/debug.keystore
 
 # Env variables
-.env
+# .env
