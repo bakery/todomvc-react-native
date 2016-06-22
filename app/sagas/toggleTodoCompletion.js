@@ -17,7 +17,6 @@ function* runToggleTodoCompletion(action) {
       }
     });
   } catch (error) {
-    console.error(error);
     yield put({
       type: TOGGLE_TASK_COMPLETION_ERROR,
       payload: {
