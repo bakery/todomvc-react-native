@@ -4,7 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLSchema
 } from 'graphql';
-import Todo from './models/todo';
+import Todo from '../models/todo';
 import Parse from 'parse/node';
 
 const schema = new GraphQLSchema({
