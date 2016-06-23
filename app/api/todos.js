@@ -1,9 +1,10 @@
 import { Lokka } from 'lokka';
 import { Transport as ParseGraphQLTransport } from './parse-transport';
-import config from '../config';
+import Settings from '../settings';
 
+const settings = Settings.load();
 const client = new Lokka({
-  transport: new ParseGraphQLTransport(`${config.serverURL}/graphql`)
+  transport: new ParseGraphQLTransport(settings.graphqlURL)
 });
 
 export function loadAllTodos() {

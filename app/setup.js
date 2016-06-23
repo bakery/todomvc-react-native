@@ -5,10 +5,12 @@ import configureStore from './store';
 import sagas from './sagas';
 import Parse from 'parse/react-native';
 import { AsyncStorage } from 'react-native';
-import config from './config';
+import Settings from './settings';
 
-Parse.initialize(config.parseAppId);
-Parse.serverURL = `${config.serverURL}/parse`;
+const settings = Settings.load();
+
+Parse.initialize(settings.parseServerApplicationId);
+Parse.serverURL = settings.parseServerURL;
 
 const store = configureStore();
 sagas.forEach(saga => store.runSaga(saga));

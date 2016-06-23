@@ -1,5 +1,5 @@
-require('dotenv').config();
-
+import settings from '../settings/development';
+import packageJSON from '../package';
 import express from 'express';
 import bodyParser from 'body-parser';
 import { ParseServer } from 'parse-server';
@@ -10,35 +10,30 @@ import schema from './schema';
 
 const app = express();
 const jsonParser = bodyParser.json();
+const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
-const IS_DEVELOPMENT = process.env.IS_DEVELOPMENT;
-const SERVER_PORT = process.env.PORT;
-const APP_ID = process.env.PARSE_SERVER_APPLICATION_ID;
-const MASTER_KEY = process.env.PARSE_SERVER_MASTER_KEY;
-const SERVER_URL = process.env.PARSE_SERVER_URL;
 
-Parse.initialize(APP_ID, 'js-key', MASTER_KEY);
-Parse.serverURL = SERVER_URL;
+Parse.initialize(settings.parseServerApplicationId, 'js-key', settings.parseServerMasterKey);
+Parse.serverURL = settings.parseServerURL;
 
 const api = new ParseServer({
-  appId: APP_ID,
-  masterKey: MASTER_KEY,
-  serverURL: SERVER_URL,
+  appId: settings.parseServerApplicationId,
+  masterKey: settings.parseServerMasterKey,
+  serverURL: settings.parseServerURL,
 });
 
-// Serve the Parse API on the /parse URL prefix
 app.use('/parse', api);
 
 app.use(
   '/dashboard',
   ParseDashboard({
     apps: [{
-      serverURL: '/parse',
-      appId: APP_ID,
-      masterKey: MASTER_KEY,
-      appName: 'F8-App-2016',
+      serverURL: settings.parseServerURL,
+      appId: settings.parseServerApplicationId,
+      masterKey: settings.parseServerMasterKey,
+      appName: packageJSON.name,
     }],
-    users: [{ user: 'admin', pass: 'admin' }]
+    users: settings.parseServerDashboardUsers
   }, IS_DEVELOPMENT)
 );
 
@@ -46,7 +41,7 @@ app.use('/graphql', jsonParser, graphqlHTTP(request => {
   const sessionToken = request.body && request.body.sessionToken;
   const baseOps = {
     schema: schema,
-    graphiql: true,
+    graphiql: IS_DEVELOPMENT,
     context: {}
   };
 
@@ -70,6 +65,6 @@ app.use('/graphql', jsonParser, graphqlHTTP(request => {
   }
 }));
 
-app.listen(SERVER_PORT, function() {
-  console.log(`parse-server-example running on port ${SERVER_PORT}`);
+app.listen(settings.serverPort, function() {
+  console.log(`parse-server-example running on port ${settings.serverPort}`);
 });
