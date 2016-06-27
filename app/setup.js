@@ -15,9 +15,9 @@ Parse.serverURL = settings.parseServerURL;
 const store = configureStore();
 sagas.forEach(saga => store.runSaga(saga));
 
-if (__DEV__) {
-  AsyncStorage.clear();
-}
+// if (__DEV__) {
+//  AsyncStorage.clear();
+// }
 
 function setup() {
   class Root extends Component {
