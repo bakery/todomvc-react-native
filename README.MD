@@ -29,7 +29,7 @@ npm run android
 
 - React Native based mobile client (iOS + Android)
 - Redux + Sagas for state management and sync
-- Parse Server + Parse Server Dashboard + GrpahQL Instance
+- Parse Server + Parse Server Dashboard + GraphQL Instance
 
 ## Configuration
 
