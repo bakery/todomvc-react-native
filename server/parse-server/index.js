@@ -11,6 +11,7 @@ export default {
       appId: settings.parseServerApplicationId,
       masterKey: settings.parseServerMasterKey,
       serverURL: settings.parseServerURL,
+      databaseURI: settings.parseServerDatabaseURI
     });
 
     app.use('/parse', api);
