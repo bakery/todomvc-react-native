@@ -23,6 +23,7 @@
     "express-graphql": "^0.5.3",
     "graphql": "^0.6.0",
     "lokka": "^1.7.0",
+    "immutable": "^3.8.1",
     "parse-dashboard": "^1.0.13",
     "parse-server": "^2.2.11",
     "react": "^15.1.0",
