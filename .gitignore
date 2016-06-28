@@ -41,3 +41,6 @@ android/keystores/debug.keystore
 
 # Local Mongo
 .mongo
+
+# Logs
+logs
