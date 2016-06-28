@@ -1,15 +1,12 @@
 import graphqlHTTP from 'express-graphql';
-import bodyParser from 'body-parser';
 import Parse from 'parse/node';
 import schema from './schema';
 import { AuthenticatedQuery } from '../models/authenticated-query';
 
-const jsonParser = bodyParser.json();
-
 export default {
   setup (app, graphiql = false) {
-    app.use('/graphql', jsonParser, graphqlHTTP(request => {
-      const sessionToken = request.body && request.body.sessionToken;
+    app.use('/graphql', graphqlHTTP(request => {
+      const sessionToken = request.headers.authorization;
       const baseOps = {
         schema: schema,
         graphiql,
