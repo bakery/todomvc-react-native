@@ -6,14 +6,11 @@ const buildOptions = (options, sessionToken) => {
 
 class AuthenticationFactory {
   constructor(sessionToken, currentUser) {
-    console.log('@@ Auth Factory constructor');
     this.sessionToken = sessionToken;
     this.currentUser = currentUser;
   }
 
   create(ParseObject) {
-    console.log('@@ creating authenticated version of Object', this.sessionToken);
-
     if (!this.sessionToken || !this.currentUser) {
       return ParseObject;
     }
@@ -23,10 +20,7 @@ class AuthenticationFactory {
 
     return ParseObject.extend({
       save(target, options) {
-        console.log('@@ calling patched save');
-
         if (this.isNew()) {
-          console.log('@@ setting acl since the object is new');
           this.setACL(new Parse.ACL(currentUser));
         }
 
@@ -38,7 +32,6 @@ class AuthenticationFactory {
       },
 
       destroy(options) {
-        console.log('@@ calling patched destroy');
         return ParseObject.prototype.destroy.call(this, buildOptions(options, sessionToken));
       },
 

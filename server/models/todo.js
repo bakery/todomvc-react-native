@@ -37,7 +37,6 @@ Todo.RootQuery = {
     isComplete: { type: GraphQLBoolean }
   },
   resolve: (_, args, { user, sessionToken, Query }) => {
-    console.log('resolving query with', user);
     const isComplete = args.isComplete;
     const query = new Query(Todo);
     if (typeof isComplete !== 'undefined') {
@@ -54,7 +53,7 @@ Todo.Mutations = {
     args: {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { text }, { user, sessionToken, Query }) => {
+    resolve: (_, { text }, { Query }) => {
       const newTodo = new Query(Todo).create({ text, isComplete: false });
       return newTodo.save().then( td => td);
     }
@@ -65,7 +64,7 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, { user, sessionToken, Query }) => {
+    resolve: (_, { id }, { Query }) => {
       return new Query(Todo).get(id).then((todo) => {
         if (todo) {
           return todo.destroy();
@@ -80,9 +79,8 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, { user, sessionToken, Query }) => {
+    resolve: (_, { id }, { Query }) => {
       return new Query(Todo).get(id).then((todo) => {
-        console.log('@@ toggle', todo);
         if (todo) {
           return todo.save({ isComplete: !todo.get('isComplete') }).then(
             t => t, error => console.error('@@ error toggling', error)
