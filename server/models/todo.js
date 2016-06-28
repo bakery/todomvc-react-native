@@ -8,12 +8,8 @@ import {
   GraphQLList
 } from 'graphql';
 
-let Todo = Parse.Object.extend('Todo');
 
-const authenticate = (sessionToken) => {
-  const options = sessionToken ? { sessionToken} : {};
-  return options;
-};
+let Todo = Parse.Object.extend('Todo');
 
 const TodoType = new GraphQLObjectType({
   name: 'Todo',
@@ -58,9 +54,8 @@ Todo.Mutations = {
     args: {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { text }, { user, sessionToken }) => {
-      const newTodo = new Todo({ text, isComplete: false });
-      newTodo.setACL(new Parse.ACL(user));
+    resolve: (_, { text }, { user, sessionToken, Query }) => {
+      const newTodo = new Query(Todo).create({ text, isComplete: false });
       return newTodo.save().then( td => td);
     }
   },
@@ -73,9 +68,8 @@ Todo.Mutations = {
     resolve: (_, { id }, { user, sessionToken, Query }) => {
       return new Query(Todo).get(id).then((todo) => {
         if (todo) {
-          return todo.destroy(authenticate(sessionToken));
+          return todo.destroy();
         }
-
         return todo;
       });
     }
@@ -90,9 +84,7 @@ Todo.Mutations = {
       return new Query(Todo).get(id).then((todo) => {
         console.log('@@ toggle', todo);
         if (todo) {
-          return todo.save({
-            isComplete: !todo.get('isComplete')
-          }, authenticate(sessionToken)).then(
+          return todo.save({ isComplete: !todo.get('isComplete') }).then(
             t => t, error => console.error('@@ error toggling', error)
           );
         }
