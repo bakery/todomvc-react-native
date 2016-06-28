@@ -2,6 +2,7 @@ import graphqlHTTP from 'express-graphql';
 import bodyParser from 'body-parser';
 import Parse from 'parse/node';
 import schema from './schema';
+import { setup as setupAuthQuery } from '../models/authenticated-query';
 
 const jsonParser = bodyParser.json();
 
@@ -12,7 +13,9 @@ export default {
       const baseOps = {
         schema: schema,
         graphiql,
-        context: {}
+        context: {
+          Query: Parse.Query,
+        }
       };
 
       if (!sessionToken) {
@@ -26,7 +29,7 @@ export default {
         }).then(user => {
           if (user) {
             return Object.assign(baseOps, {
-              context: { user, sessionToken }
+              context: { user, sessionToken, Query: setupAuthQuery(sessionToken) }
             });
           } else {
             return baseOps;

@@ -4,7 +4,8 @@ import {
   GraphQLID,
   GraphQLObjectType,
   GraphQLString,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLList
 } from 'graphql';
 
 let Todo = Parse.Object.extend('Todo');
@@ -33,6 +34,23 @@ const TodoType = new GraphQLObjectType({
 });
 
 Todo.SchemaType = TodoType;
+
+Todo.RootQuery = {
+  type: new GraphQLList(Todo.SchemaType),
+  args: {
+    isComplete: { type: GraphQLBoolean }
+  },
+  resolve: (_, args, { user, sessionToken, Query }) => {
+    console.log('resolving query with', user);
+    const isComplete = args.isComplete;
+    const query = new Query(Todo);
+    if (typeof isComplete !== 'undefined') {
+      query.equalTo('isComplete', isComplete);
+    }
+    return query.find();
+  }
+};
+
 Todo.Mutations = {
   addTodo: {
     type: Todo.SchemaType,
@@ -52,8 +70,8 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, { user, sessionToken }) => {
-      return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
+    resolve: (_, { id }, { user, sessionToken, Query }) => {
+      return new Query(Todo).get(id).then((todo) => {
         if (todo) {
           return todo.destroy(authenticate(sessionToken));
         }
@@ -68,8 +86,8 @@ Todo.Mutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLID) }
     },
-    resolve: (_, { id }, { user, sessionToken }) => {
-      return new Parse.Query(Todo).get(id, authenticate(sessionToken)).then((todo) => {
+    resolve: (_, { id }, { user, sessionToken, Query }) => {
+      return new Query(Todo).get(id).then((todo) => {
         console.log('@@ toggle', todo);
         if (todo) {
           return todo.save({
