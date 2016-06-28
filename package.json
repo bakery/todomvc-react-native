@@ -10,7 +10,7 @@
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "build:ios": "node ./node_modules/react-native/local-cli/cli.js bundle --platform ios --entry-file index.ios.js --bundle-output ios/Todos/main.jsbundle --dev=false --minify --verbose",
-    "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner --dbpath ./.mongo",
+    "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner start --name=dev --dbpath ./.mongo --purge false",
     "server": "npm run mongo && babel-watch ./server --presets es2015 --plugins transform-object-rest-spread --watch ./server/**/*.js",
     "server-debug": "npm run mongo && babel-node --debug -- ./server"
   },
