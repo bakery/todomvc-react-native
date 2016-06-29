@@ -39,8 +39,5 @@ buck-out/
 android/app/libs
 android/keystores/debug.keystore
 
-# Local Mongo
-.mongo
-
 # Logs
 logs
