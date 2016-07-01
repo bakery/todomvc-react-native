@@ -4,10 +4,10 @@
  *
  */
 
-import  { NavigationExperimental, Platform } from 'react-native';
-const { Reducer: NavigationReducer } = NavigationExperimental;
+import  { Platform } from 'react-native';
+import { tabReducer } from 'react-native-navigation-redux-helpers';
 
-const tabsDefinitions = [
+const routes = [
   {
     key: 'all',
     icon: require('./images/all.png'),
@@ -25,19 +25,11 @@ const tabsDefinitions = [
   }
 ];
 
-const _mainNavigation = NavigationReducer.TabsReducer({
+const mainNavigation = tabReducer({
   key: 'mainNavigation',
-  initialIndex: 0,
-  tabReducers: tabsDefinitions.map(t => (lastRoute) => lastRoute || t),
+  routes,
+  index: 0
 });
-
-const mainNavigation = (state, action) => {
-  if (action.scope && action.scope !== 'mainNavigation') {
-    return state;
-  } else {
-    return _mainNavigation(state, action);
-  }
-};
 
 export default mainNavigation;
 

@@ -11,14 +11,15 @@ import styles from './styles';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { selectMainNavigation } from './reducer';
-import { TouchableHighlight, NavigationExperimental } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import ToolbarAndroid from 'ToolbarAndroid';
 import TodoList from '../TodoList';
 import AddTodoItem from '../AddTodoItem';
 
-const { Reducer: NavigationReducer } = NavigationExperimental;
-const { JumpToAction } = NavigationReducer.TabsReducer;
+import { actions as navigationActions } from 'react-native-navigation-redux-helpers';
+
+const { jumpTo } = navigationActions;
 
 const androidToolbarStyle = {
   height: 56,
@@ -40,15 +41,15 @@ class MainNavigation extends Component {
   _renderNavigation() {
     const onNavigate = (action) => {
       this.drawer.closeDrawer();
-      this.props.onNavigate(action);
+      this.props.dispatch(action);
     };
     return (
       <View style={ styles.container }>
         <Text style={ styles.header }>todos</Text>
-        {this.props.mainNavigation.children.map( (t, i) => {
+        {this.props.mainNavigation.routes.map( (t, i) => {
           return (
             <TouchableHighlight underlayColor={'#ccc'}
-              onPress={ () => onNavigate(JumpToAction(i)) }
+              onPress={ () => onNavigate(jumpTo(i, this.props.mainNavigation.key)) }
               key={ t.key }>
               <View style={ styles.navigationMenuItem }>
                 <Image source={ t.icon } style={{ marginTop: 5 }} />
@@ -70,7 +71,7 @@ class MainNavigation extends Component {
   }
 
   _renderContent() {
-    const selectedTab = this.props.mainNavigation.children[this.props.mainNavigation.index];
+    const selectedTab = this.props.mainNavigation.routes[this.props.mainNavigation.index];
     const navigationIcon = require('./images/hamburger.png');
     return (
       <View style={ styles.container }>
@@ -87,18 +88,6 @@ class MainNavigation extends Component {
   }
 }
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
-  return Object.assign({}, dispatchProps, stateProps, {
-    onNavigate: (action) => {
-      dispatchProps.dispatch(
-        Object.assign(action, {
-          scope: action.scope || stateProps.mainNavigation.key
-        })
-      );
-    }
-  });
-};
-
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
@@ -107,5 +96,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   createSelector(selectMainNavigation, (mainNavigation) => ({ mainNavigation })),
-  mapDispatchToProps, mergeProps
+  mapDispatchToProps
 )(MainNavigation);
