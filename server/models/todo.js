@@ -53,8 +53,9 @@ Todo.Mutations = {
     args: {
       text: { type: new GraphQLNonNull(GraphQLString) }
     },
-    resolve: (_, { text }, { Query }) => {
+    resolve: (_, { text }, { Query, user }) => {
       const newTodo = new Query(Todo).create({ text, isComplete: false });
+      newTodo.setACL(new Parse.ACL(user));
       return newTodo.save().then( td => td);
     }
   },
