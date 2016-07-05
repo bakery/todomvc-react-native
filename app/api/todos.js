@@ -1,8 +1,8 @@
 import Settings from '../settings';
-import GraphQLClient from './base';
+import GraphQLClient from 'parse-graphql-client';
 
 const settings = Settings.load();
-const client = new GraphQLClient(settings.graphqlURL);
+const client = new GraphQLClient(settings.graphqlURL, require('parse/react-native'));
 
 export function loadAllTodos() {
   return client.query(`
