@@ -55,7 +55,9 @@ Todo.Mutations = {
     },
     resolve: (_, { text }, { Query, user }) => {
       const newTodo = new Query(Todo).create({ text, isComplete: false });
-      newTodo.setACL(new Parse.ACL(user));
+      if (user) {
+        newTodo.setACL(new Parse.ACL(user));
+      }
       return newTodo.save().then( td => td);
     }
   },
