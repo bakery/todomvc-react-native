@@ -12,8 +12,8 @@
     "build:ios": "node ./node_modules/react-native/local-cli/cli.js bundle --platform ios --entry-file index.ios.js --bundle-output ios/Todos/main.jsbundle --dev=false --minify --verbose",
     "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner start --name=dev --purge false",
     "server": "npm run mongo && NODE_ENV=development babel-watch ./server --presets es2015 --plugins transform-object-rest-spread --watch ./server/**/*.js",
-    "server-without-mongo-runner": "NODE_ENV=development babel-watch ./server --presets es2015 --plugins transform-object-rest-spread --watch ./server/**/*.js",
-    "server-debug": "npm run mongo && NODE_ENV=development babel-node --debug -- ./server"
+    "server-without-mongo-runner": "NODE_ENV=development ./node_modules/babel-watch/babel-watch.js ./server --presets es2015 --plugins transform-object-rest-spread --watch ./server/**/*.js",
+    "server-debug": "npm run mongo && NODE_ENV=development ./node_modules/babel-cli/bin/babel-node.js --presets es2015 --debug -- ./server"
   },
   "engines": {
     "node": ">=4.3"
@@ -25,7 +25,7 @@
     "parse": "^1.8.5",
     "parse-dashboard": "^1.0.13",
     "parse-graphql-client": "^0.2.0",
-    "parse-graphql-server": "^0.1.0",
+    "parse-graphql-server": "^0.3.0",
     "parse-server": "^2.2.11",
     "react": "^15.1.0",
     "react-native": "^0.28.0",
@@ -38,6 +38,7 @@
     "reselect": "^2.4.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
     "babel-eslint": "^6.0.2",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-polyfill": "^6.7.4",
