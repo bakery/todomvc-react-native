@@ -13,7 +13,7 @@ function* runAddTodo(action) {
     yield put({
       type: ADD_TASK_SUCCESS,
       payload: {
-        todo: response.addTodo,
+        todo: response.todo,
         clientId: action.payload.id
       }
     });

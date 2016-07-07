@@ -17,7 +17,7 @@ export function loadAllTodos() {
 export function addTodo(text) {
   return client.mutate(`
     {
-      addTodo(text:"${text}") {
+      todo: addTodo(text:"${text}") {
         id, text, isComplete
       }
     }
@@ -27,7 +27,7 @@ export function addTodo(text) {
 export function toggleTodoCompletion(id) {
   return client.mutate(`
     {
-      toggleTodoCompletion(id: "${id}") {
+      todo: toggleTodoCompletion(id: "${id}") {
         id, text, isComplete
       }
     }
@@ -37,7 +37,7 @@ export function toggleTodoCompletion(id) {
 export function deleteTodo(id) {
   return client.mutate(`
     {
-      deleteTodo(id: "${id}") {
+      todo: deleteTodo(id: "${id}") {
         id
       }
     }
