@@ -27,7 +27,13 @@ export default {
           iconName: 'todo-mvc-icon.png'
         }],
         iconsFolder: 'server/public/images',
-        users: settings.parseServerDashboardUsers
+        // XX: fix this
+        users: [
+          { 
+            "user": "admin", 
+            "pass": "admin"
+          }
+        ]
       }, true)
     );
   }
