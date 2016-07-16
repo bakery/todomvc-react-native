@@ -10,6 +10,6 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 parseServer.setup(app, packageJSON.name, settings, IS_DEVELOPMENT);
 graphql.setup(app, IS_DEVELOPMENT);
 
-app.listen(settings.serverPort, function() {
+app.listen(process.env.PORT || settings.serverPort, function() {
   console.log(`server running on port ${settings.serverPort}`);
 });
