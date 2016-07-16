@@ -7,6 +7,8 @@ import parseServer from './parse-server';
 const app = express();
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
+console.log('process.env.NODE_ENV is', process.env.NODE_ENV);
+
 parseServer.setup(app, packageJSON.name, settings, IS_DEVELOPMENT);
 graphql.setup(app, IS_DEVELOPMENT);
 
