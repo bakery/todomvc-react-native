@@ -5,8 +5,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "./node_modules/babel-cli/bin/babel-node.js --presets es2015 -- *.js",
-    "deploy:server": "git subtree push --prefix ./ heroku master"
+    "start": "./node_modules/babel-cli/bin/babel-node.js --presets es2015 -- *.js"
   },
   "engines": {
     "node": ">=4.3"
