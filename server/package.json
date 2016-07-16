@@ -1,0 +1,25 @@
+{
+  "name": "Todos-server",
+  "version": "1.0.0",
+  "description": "React Native app powered by Baker",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "./node_modules/babel-cli/bin/babel-node.js --presets es2015 -- *.js",
+    "deploy:server": "git subtree push --prefix ./ heroku master"
+  },
+  "engines": {
+    "node": ">=4.3"
+  },
+  "dependencies": {
+    "babel-cli": "^6.10.1",
+    "express": "^4.13.4",
+    "graphql": "^0.6.0",
+    "immutable": "^3.8.1",
+    "parse": "1.8.5",
+    "parse-dashboard": "^1.0.13",
+    "parse-graphql-client": "^0.2.0",
+    "parse-graphql-server": "^0.3.0",
+    "parse-server": "^2.2.11"
+  }
+}
