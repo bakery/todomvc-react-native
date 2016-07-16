@@ -5,7 +5,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "./node_modules/babel-cli/bin/babel-node.js --presets es2015 -- *.js"
+    "start": "node ./build/index.js",
+    "heroku-postbuild": "./node_modules/.bin/babel src --presets es2015 -d build"
   },
   "engines": {
     "node": ">=4.3"
@@ -20,5 +21,9 @@
     "parse-graphql-client": "^0.2.0",
     "parse-graphql-server": "^0.3.0",
     "parse-server": "^2.2.11"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0"
   }
 }

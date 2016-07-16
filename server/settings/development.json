@@ -1,0 +1,14 @@
+{
+  "serverPort": 8000,
+  "parseServerApplicationId": "parse-app-id",
+  "parseServerMasterKey": "70c6093dba5a7e55968a1c7ad3dd3e5a74ef5cac",
+  "parseServerDatabaseURI": "mongodb://localhost:27017/dev",
+  "parseServerURL": "http://localhost:8000/parse",
+  "parseServerDashboardUsers": [
+    { 
+      "user": "admin", 
+      "pass": "admin"
+    }
+  ],
+  "graphqlURL": "http://localhost:8000/graphql"
+}
