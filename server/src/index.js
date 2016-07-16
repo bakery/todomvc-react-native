@@ -9,7 +9,7 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 console.log('process.env.NODE_ENV is', process.env.NODE_ENV);
 
-parseServer.setup(app, packageJSON.name, settings, IS_DEVELOPMENT);
+parseServer.setup(app, packageJSON.name, settings);
 graphql.setup(app, IS_DEVELOPMENT);
 
 app.listen(process.env.PORT || settings.serverPort, function() {
