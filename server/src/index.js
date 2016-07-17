@@ -17,6 +17,7 @@ const app = express();
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 console.log('process.env.NODE_ENV is', process.env.NODE_ENV);
+console.log('process.env.PORT is', process.env.PORT);
 
 parseServer.setup(app, packageJSON.name, settings);
 graphql.setup(app, IS_DEVELOPMENT);

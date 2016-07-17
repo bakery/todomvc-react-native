@@ -6,7 +6,11 @@
   "license": "ISC",
   "scripts": {
     "start": "node ./build/index.js",
-    "heroku-postbuild": "./node_modules/.bin/babel src --presets es2015 -d build"
+    "heroku-postbuild": "./node_modules/.bin/babel src --presets es2015 -d build",
+    "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner start --name=dev --purge false",
+    "server": "npm run mongo && NODE_ENV=development ./baker/scripts/server.js",
+    "server-debug": "npm run mongo && NODE_ENV=development ../baker/scripts/server.js --debug",
+    "server-watch": "npm run mongo && NODE_ENV=development ../baker/scripts/server.js --watch"
   },
   "engines": {
     "node": ">=4.3"
