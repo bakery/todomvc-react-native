@@ -5,12 +5,13 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "deploy": "./node_modules/babel-cli/bin/babel-node.js ./scripts/server-deploy.js --presets es2015",
     "start": "node ./build/index.js",
     "heroku-postbuild": "./node_modules/.bin/babel src --presets es2015 -d build",
     "mongo": "node ./node_modules/mongodb-runner/bin/mongodb-runner start --name=dev --purge false",
-    "server": "npm run mongo && NODE_ENV=development ./baker/scripts/server.js",
-    "server-debug": "npm run mongo && NODE_ENV=development ../baker/scripts/server.js --debug",
-    "server-watch": "npm run mongo && NODE_ENV=development ../baker/scripts/server.js --watch"
+    "server": "npm run mongo && NODE_ENV=development ./scripts/server.js",
+    "server-debug": "npm run mongo && NODE_ENV=development ./scripts/server.js --debug",
+    "server-watch": "npm run mongo && NODE_ENV=development ./scripts/server.js --watch"
   },
   "engines": {
     "node": ">=4.3"
@@ -25,7 +26,10 @@
     "parse-graphql-client": "^0.2.0",
     "parse-graphql-server": "^0.3.0",
     "parse-server": "^2.2.11",
-    "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0"
+  },
+  "devDependencies": {
+    "mongodb-runner": "^3.3.2",
+    "forever-monitor": "^1.7.0"
   }
 }
