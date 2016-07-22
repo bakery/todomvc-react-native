@@ -8,11 +8,12 @@ function loadSettings() {
   try {
     return require('../../settings/development/base');
   } catch(e) {
-    return process.env.APPLICATION_SETTINGS;
+    return JSON.parse(process.env.APPLICATION_SETTINGS);
   }
 };
 
 const settings = loadSettings();
+console.log('@@@ settings are', settings);
 const app = express();
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 const serverPort = process.env.PORT || settings.serverPort;
