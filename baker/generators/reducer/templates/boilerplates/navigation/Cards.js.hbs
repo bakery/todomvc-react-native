@@ -1,0 +1,16 @@
+import { cardStackReducer } from 'react-native-navigation-redux-helpers';
+
+const initialState = {
+  key: '{{reducerName}}',
+  index: 0,
+  routes: [
+    {
+      key: '{{reducerName}}-initial-card',
+      index: 0,
+    },
+  ],
+};
+
+const {{reducerName}} = cardStackReducer(initialState);
+
+export default {{reducerName}};

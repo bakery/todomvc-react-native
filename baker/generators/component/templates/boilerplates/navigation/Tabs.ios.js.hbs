@@ -1,0 +1,56 @@
+import { actions as navigationActions } from 'react-native-navigation-redux-helpers';
+
+const { View, Text, TabBarIOS } = ReactNative;
+const { jumpTo } = navigationActions;
+
+export class {{componentName}} extends Component {
+  constructor(props) {
+    super(props);
+
+    this.renderTabContent = this.renderTabContent.bind(this);
+  }
+
+  // XX: get rid of this eslint-disable thingy once you set up
+  // proper rendering for your tabs
+  // eslint-disable-next-line no-unused-vars
+  renderTabContent(tab) {
+    // XX: replace this with code to render specific components/containers
+    // corresponding to tabs in your app, e.g.
+    // if (tab.key === 'maps') {
+    //   return <MapView />;
+    // }
+
+    return (
+      <View style={styles.container}>
+        <Text>Generic Tab</Text>
+      </View>
+    );
+  }
+
+  render() {
+    const { dispatch, {{reducerName}} } = this.props;
+    const children = {{reducerName}}.routes.map((tab, i) =>
+      (
+      <TabBarIOS.Item
+        key={tab.key}
+        icon={tab.icon}
+        selectedIcon={tab.selectedIcon}
+        title={tab.title}
+        onPress={
+          () => dispatch(jumpTo(i, {{reducerName}}.key))
+        }
+        selected={this.props.{{reducerName}}.index === i}
+      >
+        {this.renderTabContent(tab)}
+      </TabBarIOS.Item>
+      )
+    );
+    return (
+      <TabBarIOS>
+        {children}
+      </TabBarIOS>
+    );
+  }
+}
+
+{{> mapDispatchAndPropsAndConnect }}

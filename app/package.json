@@ -1,0 +1,31 @@
+{
+  "name": "Todos",
+  "version": "1.0.0",
+  "description": "React Native app powered by Baker",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android"
+  },
+  "engines": {
+    "node": ">=4.3"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "parse": "1.8.5",
+    "parse-graphql-client": "^0.2.0",
+    "react": "~15.2.1",
+    "react-native": "^0.31.0",
+    "react-native-navigation-redux-helpers": "^0.3.0",
+    "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "redux-immutable": "^3.0.6",
+    "redux-saga": "^0.10.5",
+    "reselect": "^2.4.0"
+  },
+  "devDependencies": {
+    "remote-redux-devtools": "^0.3.3"
+  }
+}

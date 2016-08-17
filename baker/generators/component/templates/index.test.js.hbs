@@ -1,0 +1,21 @@
+import React, { Text } from 'react-native';
+import { shallow } from 'enzyme';
+import {{#if isContainer}}{ {{componentName}} }{{else}}{{componentName}}{{/if}} from './index{{#if platform}}.{{platform}}{{/if}}';
+
+describe('{{componentName}} component{{#if platform}} - {{platform}} version{{/if}}', () => {
+  it('has 1 Text element', () => {
+    {{#if isContainer}}
+    const dispatchSpy = spy();
+    const containerData = {};
+    const wrapper = shallow(
+      <{{componentName}} dispatch={dispatchSpy} {{reducerName}}={containerData} />
+    );
+    expect(wrapper.find(Text)).to.have.lengthOf(1);
+    {{else}}
+    const wrapper = shallow(
+      <{{componentName}} />
+    );
+    expect(wrapper.find(Text)).to.have.lengthOf(1);
+    {{/if}}
+  });
+});

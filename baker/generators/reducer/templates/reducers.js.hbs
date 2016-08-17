@@ -1,0 +1,12 @@
+import { combineReducers } from 'redux-immutable';
+
+// XX: Do not rename this variable if you want reducer generator
+// to keep working properly (and you do want that, right?)
+const applicationReducers = {
+  // XX: you can kill this reducer once you have at least 1 proper reducer in the system
+  dummy: (state = {}, action) => state
+};
+
+export default function createReducer() {
+  return combineReducers(applicationReducers);
+};

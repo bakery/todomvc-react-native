@@ -1,0 +1,32 @@
+import { takeEvery } from 'redux-saga';
+import { put, call } from 'redux-saga/effects';
+import { apiCall } from '../api/apiCall';
+
+// XX: you will probably move these constants into constants module
+// associated with an appropriate reducer
+const {{constantCase sagaName}}_REQUEST = 'sagas/{{constantCase sagaName}}_REQUEST';
+const {{constantCase sagaName}}_ERROR = 'sagas/{{constantCase sagaName}}_ERROR';
+const {{constantCase sagaName}}_SUCCESS = 'sagas/{{constantCase sagaName}}_SUCCESS';
+
+function* run{{pascalCase sagaName}}(action) {
+  try {
+    const response = yield call(apiCall);
+    yield put({
+      type: {{constantCase sagaName}}_SUCCESS,
+      payload: {
+        // data from the result of API call
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: {{constantCase sagaName}}_ERROR,
+      payload: {
+        error,
+      },
+    });
+  }
+}
+
+export function* {{sagaName}}() {
+  yield* takeEvery({{constantCase sagaName}}_REQUEST, run{{pascalCase sagaName}});
+}

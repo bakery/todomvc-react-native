@@ -1,0 +1,18 @@
+/*
+ *
+ * {{componentName}}
+ *
+ */
+
+import ReactNative from 'react-native';
+import React, { Component } from 'react';
+import styles from './styles';
+
+{{#if isContainer}}
+import { connect } from 'react-redux';
+  {{#if selectorName}}
+import { createSelector } from 'reselect';
+import { {{selectorName}} } from './reducer';
+  {{/if}}
+{{/if}}
+{{{boilerplate}}}

@@ -1,0 +1,15 @@
+import { takeEvery } from 'redux-saga';
+import { put } from 'redux-saga/effects';
+
+function* run{{pascalCase sagaName}}(action) {
+  console.log('processeing action', action);
+  yield put({
+    type: 'MESSAGE_TO_SEND',
+    payload: {
+    },
+  });
+}
+
+export function* {{sagaName}}() {
+  yield* takeEvery('NAME_OF_THE_MESSAGE', run{{pascalCase sagaName}});
+}

@@ -1,0 +1,71 @@
+import Parse from 'parse/node';
+import {
+  GraphQLID,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLNonNull,
+  GraphQLList,
+} from 'graphql';
+
+
+const {{modelName}} = Parse.Object.extend('{{modelName}}');
+
+const {{modelName}}Type = new GraphQLObjectType({
+  name: '{{modelName}}',
+  description: 'A concise description of what {{modelName}} is',
+  fields: () => ({
+    id: {
+      type: GraphQLID,
+    },
+    // XX: you should probably replace this with something
+    // relevant to your model
+    text: {
+      type: GraphQLString,
+      resolve: {{camelCase modelName}} => {{camelCase modelName}}.get('text'),
+    },
+    // more field defs here
+  }),
+});
+
+{{modelName}}.SchemaType = {{modelName}}Type;
+
+{{modelName}}.RootQuery = {
+  type: new GraphQLList({{modelName}}.SchemaType),
+  resolve: (_, args, { Query }) => {
+    const query = new Query({{modelName}});
+    return query.find();
+  },
+};
+
+{{modelName}}.Mutations = {
+  add{{modelName}}: {
+    type: {{modelName}}.SchemaType,
+    description: 'Create a new instance of {{modelName}}',
+    args: {
+      text: { type: new GraphQLNonNull(GraphQLString) },
+    },
+    resolve: (_, { text }, { Query, user }) => {
+      const {{camelCase modelName}} = new Query({{modelName}}).create({ text });
+      if (user) {
+        {{camelCase modelName}}.setACL(new Parse.ACL(user));
+      }
+      return {{camelCase modelName}}.save().then(td => td);
+    },
+  },
+  delete{{modelName}}: {
+    type: {{modelName}}.SchemaType,
+    description: 'Delete an instance of {{modelName}}',
+    args: {
+      id: { type: new GraphQLNonNull(GraphQLID) },
+    },
+    resolve: (_, { id }, { Query }) =>
+      new Query({{modelName}}).get(id).then(({{camelCase modelName}}) => {
+        if ({{camelCase modelName}}) {
+          return {{camelCase modelName}}.destroy();
+        }
+        return {{camelCase modelName}};
+      }),
+  },
+};
+
+export default {{modelName}};

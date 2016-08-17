@@ -1,0 +1,7 @@
+git_url "https://github.com/callmephilip/todomvc-certs.git"
+
+type "development"
+shallow_clone "false"
+
+app_identifier "io.thebakery.todomvc"
+username "bakers@thebakery.io"

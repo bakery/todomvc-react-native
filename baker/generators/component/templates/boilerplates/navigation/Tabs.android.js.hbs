@@ -1,0 +1,81 @@
+import { actions as navigationActions } from 'react-native-navigation-redux-helpers';
+
+const { View, Text, TouchableHighlight, DrawerLayoutAndroid, ToolbarAndroid } = ReactNative;
+const { jumpTo } = navigationActions;
+
+const androidToolbarStyle = {
+  backgroundColor: '#E9EAED',
+  height: 56,
+};
+
+export class {{componentName}} extends Component {
+  // XX: get rid of this eslint-disable thingy once you set up
+  // proper rendering for your tabs
+  // eslint-disable-next-line no-unused-vars
+  renderTabContent(tab) {
+    // XX: replace this with code to render specific components/containers
+    // corresponding to tabs in your app, e.g.
+    // if (tab.key === 'maps') {
+    //   return <MapView />;
+    // }
+
+    return (
+      <View style={styles.container}>
+        <Text>Generic Tab</Text>
+      </View>
+    );
+  }
+
+  renderContent() {
+    const selectedTab = this.props.{{reducerName}}.routes[this.props.{{reducerName}}.index];
+    const navigationIcon = { uri: 'http://placehold.it/56x56' };
+    return (
+      <View style={styles.container}>
+        <ToolbarAndroid
+          style={androidToolbarStyle}
+          navIcon={navigationIcon}
+          onIconClicked={() => this.drawer.openDrawer()}
+          title={selectedTab.title}
+        />
+        {this.renderTabContent(selectedTab)}
+      </View>
+    );
+  }
+
+  render() {
+    const { {{reducerName}}, dispatch } = this.props;
+    const onNavigate = (action) => {
+      this.drawer.closeDrawer();
+      dispatch(action);
+    };
+    const routes = {{reducerName}}.routes;
+
+    const navigationView = (
+      <View style={styles.container}>
+        {routes.map((t, i) =>
+          (
+          <TouchableHighlight
+            onPress={() => onNavigate(jumpTo(i, {{reducerName}}.key))}
+            key={t.key}
+          >
+            <Text>{t.title}</Text>
+          </TouchableHighlight>
+          )
+        )}
+      </View>
+    );
+
+    return (
+      <DrawerLayoutAndroid
+        ref={(drawer) => { this.drawer = drawer; }}
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => navigationView}
+      >
+        {this.renderContent()}
+      </DrawerLayoutAndroid>
+    );
+  }
+}
+
+{{> mapDispatchAndPropsAndConnect }}

@@ -1,0 +1,15 @@
+{
+  "name": "baker",
+  "version": "1.0.0",
+  "description": "React Native app powered by Baker",
+  "devDependencies": {
+    "minimist": "^1.2.0",
+    "remote-redux-devtools": "^0.1.6",
+    "yeoman-environment": "^1.6.1",
+    "yeoman-generator": "^0.21.2"
+  },
+  "scripts": {
+    "setup": "npm install --save --save-exact react-native && node ./cli/baker.js generate:app",
+    "generate": "node ./cli/baker.js generate"
+  }
+}

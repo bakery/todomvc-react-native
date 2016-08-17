@@ -1,0 +1,9 @@
+import reducer from './reducer';
+
+describe('{{container}} reducer', () => {
+  it('returns default state', () => {
+    expect(
+      reducer(undefined, {})
+    ).to.eql({});
+  });
+});

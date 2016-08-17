@@ -1,0 +1,13 @@
+const { View, Text } = ReactNative;
+
+{{#if isContainer}}export {{/if}}class {{componentName}} extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>{{componentName}}</Text>
+      </View>
+    );
+  }
+}
+
+{{> mapDispatchAndPropsAndConnect }}
