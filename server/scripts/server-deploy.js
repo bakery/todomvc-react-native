@@ -2,7 +2,10 @@
 
 import path from 'path';
 import { execSync as run } from 'child_process';
-import settings from '../../settings/production/base';
+import serverSettings from '../../settings/production/server';
+import baseSettings from '../../settings/production/base';
+
+const settings = Object.assign(baseSettings, serverSettings);
 
 console.log('deploying jazz with', settings);
 

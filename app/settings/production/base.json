@@ -1,0 +1,6 @@
+{
+  "serverPort": 80,
+  "parseServerApplicationId": "parse-app-id",
+  "parseServerURL": "https://todomvc-rn.herokuapp.com/parse",
+  "graphqlURL": "https://todomvc-rn.herokuapp.com/graphql"
+}
