@@ -31,10 +31,21 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     match(type: "appstore", readonly: true) # more information: https://codesigning.guide
+    
+    increment_build_number(
+      xcodeproj: './ios/Todos.xcodeproj'
+    )
+
     ipa = gym(
       scheme: "Todos",
       project: "./ios/Todos.xcodeproj"
-    ) # Build your app - more options available
+    )
+
+    commit_version_bump(
+      message: "Deployed new build #{lane_context[SharedValues::BUILD_NUMBER]}",
+      xcodeproj: './ios/Todos.xcodeproj'
+    )
+
     pilot(ipa: ipa)
   end
 
