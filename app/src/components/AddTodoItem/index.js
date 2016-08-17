@@ -11,31 +11,31 @@ import { connect } from 'react-redux';
 import { addTask } from '../TodoList/actions';
 
 class AddTodoItem extends Component {
+  saveTodoItem() {
+    this.props.addTask(this.state.text);
+    this._textBox.clear();
+  }
+
   render() {
     return (
       <TextInput
-        ref={ input => { this._textBox = input; } }
+        ref={ input => {this._textBox = input; }}
         autoCorrect={false}
-        placeholder={ __DEV__ ? '[__DEV__] What needs to be done?' : 'What needs to be done?'}
-        style={ styles.textBox }
+        placeholder={'What needs to be done?'}
+        style={styles.textBox}
         onChangeText={(text) => this.setState({ text })}
         onSubmitEditing={this.saveTodoItem.bind(this)}
       />
     );
-  }
-
-  saveTodoItem () {
-    this.props.addTask(this.state.text);
-    this._textBox.clear();
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    addTask (text) {
+    addTask(text) {
       dispatch(addTask(text));
-    }
+    },
   };
 }
 
