@@ -46,7 +46,7 @@ platform :ios do
     clean_build_artifacts()
 
     commit_version_bump(
-      message: "Deployed new build #{lane_context[SharedValues::BUILD_NUMBER]}",
+      message: "Deployed new version #{lane_context[SharedValues::VERSION_NUMBER]}.#{lane_context[SharedValues::BUILD_NUMBER]} [skip ci]",
       xcodeproj: './ios/Todos.xcodeproj'
     )
   end
