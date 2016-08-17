@@ -41,14 +41,14 @@ platform :ios do
       project: "./ios/Todos.xcodeproj"
     )
 
+    pilot(ipa: ipa)
+
     clean_build_artifacts()
 
     commit_version_bump(
       message: "Deployed new build #{lane_context[SharedValues::BUILD_NUMBER]}",
       xcodeproj: './ios/Todos.xcodeproj'
     )
-
-    pilot(ipa: ipa)
   end
 
   desc "Deploy a new version to the App Store"
