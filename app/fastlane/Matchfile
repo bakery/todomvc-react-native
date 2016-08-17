@@ -1,7 +1,6 @@
-git_url "https://github.com/callmephilip/todomvc-certs.git"
+git_url "git+ssh://git@github.com/callmephilip/todos-certs.git"
 
-type "development"
-shallow_clone "false"
+type "development" # The default type, can be: appstore, adhoc or development
 
-app_identifier "io.thebakery.todomvc"
+app_identifier "io.thebakery.todos" 
 username "bakers@thebakery.io"

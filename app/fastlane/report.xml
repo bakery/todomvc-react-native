@@ -3,27 +3,29 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000375">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.00054">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000174">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000226">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: match" time="9.172094">
+      <testcase classname="fastlane.lanes" name="2: match" time="3.056146">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: gym" time="54.426197">
+      <testcase classname="fastlane.lanes" name="3: gym" time="69.879735">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: pilot" time="268.757646">
+      <testcase classname="fastlane.lanes" name="4: pilot" time="189.355836">
+        
+          <failure message="/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/actions/actions_helper.rb:33:in `execute_action'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:177:in `block in execute_action'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:176:in `chdir'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:176:in `execute_action'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:102:in `trigger_action_by_name'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/fast_file.rb:140:in `method_missing'&#10;Fastfile:38:in `block (2 levels) in parsing_binding'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/lane.rb:33:in `call'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/lane.rb:33:in `call'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:50:in `block in execute'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:46:in `chdir'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/runner.rb:46:in `execute'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/lane_manager.rb:46:in `cruise_lane'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/command_line_handler.rb:30:in `handle'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/commands_generator.rb:51:in `block (2 levels) in run'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/commander-4.4.0/lib/commander/command.rb:178:in `call'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/commander-4.4.0/lib/commander/command.rb:178:in `call'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/commander-4.4.0/lib/commander/command.rb:153:in `run'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/commander-4.4.0/lib/commander/runner.rb:444:in `run_active_command'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane_core-0.50.2/lib/fastlane_core/ui/fastlane_runner.rb:36:in `run!'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/commander-4.4.0/lib/commander/delegates.rb:15:in `run!'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/commands_generator.rb:248:in `run'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/commands_generator.rb:20:in `start'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/lib/fastlane/cli_tools_distributor.rb:53:in `take_off'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/gems/fastlane-1.100.0/bin/fastlane:5:in `&lt;top (required)&gt;'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/bin/fastlane:23:in `load'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/bin/fastlane:23:in `&lt;main&gt;'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `eval'&#10;/Users/philip/.rvm/gems/ruby-2.2.3/bin/ruby_executable_hooks:15:in `&lt;main&gt;'&#10;&#10;You cannot start testing without any tester. Please add tester(s) first and try again." />
         
       </testcase>
     
