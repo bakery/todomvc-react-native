@@ -2,6 +2,8 @@
 
 [TodoMVC](http://todomvc.com/) using React Native with Parse Server persistence layer
 
+[![Build Status](https://www.bitrise.io/app/8cf4360e8c7dc8b3.svg?token=Lh3j-hKFhrtFiD_Al3pOiA&branch=master)](https://www.bitrise.io/app/8cf4360e8c7dc8b3)
+
 ![React Native TodosMVC](.github/todomvc.png)
 
 ## Quick start
