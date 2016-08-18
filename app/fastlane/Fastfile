@@ -27,17 +27,8 @@ platform :ios do
     clean_build_artifacts
 
     commit_version_bump(
-      message: "👷 Deployed new version #{lane_context[SharedValues::VERSION_NUMBER]}.#{lane_context[SharedValues::BUILD_NUMBER]} [skip ci]",
+      message: "👷 Pushed new build on TestFlight (build #{lane_context[SharedValues::BUILD_NUMBER]}) [skip ci]",
       xcodeproj: './ios/Todos.xcodeproj'
     )
-  end
-
-  desc "Deploy a new version to the App Store"
-  lane :appstore do
-    # match(type: "appstore")
-    # snapshot
-    gym # Build your app - more options available
-    deliver(force: true)
-    # frameit
   end
 end
