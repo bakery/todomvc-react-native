@@ -49,8 +49,6 @@ platform :ios do
       message: "👷 Deployed new version #{lane_context[SharedValues::VERSION_NUMBER]}.#{lane_context[SharedValues::BUILD_NUMBER]} [skip ci]",
       xcodeproj: './ios/Todos.xcodeproj'
     )
-
-    push_to_git_remote
   end
 
   desc "Deploy a new version to the App Store"
