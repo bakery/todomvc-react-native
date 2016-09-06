@@ -17,12 +17,14 @@ cd todomvc-react-native && npm install
 To run the server
 
 ```sh
+cd server
 npm run server
 ```
 
 To run app on iOS/Android emulator
 
 ```sh
+cd app
 npm run ios
 npm run android
 ```
