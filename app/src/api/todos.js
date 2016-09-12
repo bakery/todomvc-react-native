@@ -2,6 +2,7 @@ import Settings from '../settings';
 import GraphQLClient from 'parse-graphql-client';
 
 const settings = Settings.load();
+// eslint-disable-next-line global-require
 const client = new GraphQLClient(settings.graphqlURL, require('parse/react-native'));
 
 export function loadAllTodos() {

@@ -4,7 +4,7 @@ import { LOAD_TASKS_REQUEST, LOAD_TASKS_ERROR, LOAD_TASKS_SUCCESS } from '../sta
 import { loadAllTodos } from '../api/todos';
 import { getCurrentUser } from '../api/auth';
 
-function* runLoadTodos(action) {
+function* runLoadTodos() {
   try {
     yield call(getCurrentUser);
     const response = yield call(loadAllTodos);
@@ -12,14 +12,14 @@ function* runLoadTodos(action) {
       type: LOAD_TASKS_SUCCESS,
       payload: {
         todos: response.todos,
-      }
+      },
     });
   } catch (error) {
     yield put({
       type: LOAD_TASKS_ERROR,
       payload: {
         error,
-      }
+      },
     });
   }
 }

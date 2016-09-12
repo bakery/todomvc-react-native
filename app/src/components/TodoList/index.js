@@ -20,41 +20,56 @@ import NoTodos from '../NoTodos';
 import TodoItem from '../TodoItem';
 
 class TodoList extends Component {
-  render() {
+  constructor() {
+    super();
+
+    this.renderRow = this.renderRow.bind(this);
+  }
+
+  renderList() {
+    if (this.props.todos.size !== 0) {
+      const ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2,
+      });
+
+      return (
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.todos.toJS())}
+          renderRow={this.renderRow}
+        />
+      );
+    }
+
     return (
-      <View style={ styles.container }>
-        {this._renderList()}
-      </View>
+      <NoTodos />
     );
   }
 
-  _renderList() {
-    if (this.props.todos.size !== 0) {
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      return (
-        <ListView dataSource={ds.cloneWithRows(this.props.todos.toJS())}
-          renderRow={this._renderRow.bind(this)} />
-      );
-    } else {
-      return (
-        <NoTodos />
-      );
-    }
-  }
-
-  _renderRow (todo) {
+  renderRow(todo) {
     return (
-      <TodoItem todo={todo}
+      <TodoItem
+        todo={todo}
         key={todo.id}
         onDelete={this.props.deleteTask}
-        onToggleCompletion={this.props.toggleCompletion} />
+        onToggleCompletion={this.props.toggleCompletion}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.renderList()}
+      </View>
     );
   }
 }
 
 TodoList.propTypes = {
   todos: PropTypes.object.isRequired,
-  filter: PropTypes.string.isRequired
+  filter: PropTypes.string.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  toggleCompletion: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -71,9 +86,9 @@ function mapDispatchToProps(dispatch) {
 
 function getSelector(state, props) {
   const filterToSelector = {
-    'all': selectAllTodos,
-    'completed': selectCompletedTodos,
-    'active': selectActiveTodos,
+    all: selectAllTodos,
+    completed: selectCompletedTodos,
+    active: selectActiveTodos,
   };
   return createSelector(filterToSelector[props.filter], (todos) => ({ todos }))(state, props);
 }

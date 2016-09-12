@@ -11,8 +11,8 @@ function* runDeleteTodo(action) {
       type: DELETE_TASK_ERROR,
       payload: {
         error,
-        id: action.payload.id
-      }
+        id: action.payload.id,
+      },
     });
   }
 }

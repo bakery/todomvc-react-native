@@ -13,16 +13,16 @@ function* runToggleTodoCompletion(action) {
     yield put({
       type: TOGGLE_TASK_COMPLETION_SUCCESS,
       payload: {
-        id: action.payload.id
-      }
+        id: action.payload.id,
+      },
     });
   } catch (error) {
     yield put({
       type: TOGGLE_TASK_COMPLETION_ERROR,
       payload: {
         error,
-        id: action.payload.id
-      }
+        id: action.payload.id,
+      },
     });
   }
 }

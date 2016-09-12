@@ -14,16 +14,16 @@ function* runAddTodo(action) {
       type: ADD_TASK_SUCCESS,
       payload: {
         todo: response.todo,
-        clientId: action.payload.id
-      }
+        clientId: action.payload.id,
+      },
     });
   } catch (error) {
     yield put({
       type: ADD_TASK_ERROR,
       payload: {
         error,
-        clientId: action.payload.id
-      }
+        clientId: action.payload.id,
+      },
     });
   }
 }
