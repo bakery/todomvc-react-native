@@ -8,7 +8,7 @@ import { TextInput } from 'react-native';
 import React, { Component } from 'react';
 import styles from './styles';
 import { connect } from 'react-redux';
-import { addTask } from '../TodoList/actions';
+import { addTask } from '../../state/todos/actions';
 
 class AddTodoItem extends Component {
   saveTodoItem() {

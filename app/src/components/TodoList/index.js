@@ -10,8 +10,12 @@ import styles from './styles';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { selectAllTodos, selectActiveTodos, selectCompletedTodos } from './reducer';
-import { toggleTaskCompletion, deleteTask } from './actions';
+import {
+  selectAllTodos,
+  selectActiveTodos,
+  selectCompletedTodos,
+} from '../../state/todos/selectors';
+import { toggleTaskCompletion, deleteTask } from '../../state/todos/actions';
 import NoTodos from '../NoTodos';
 import TodoItem from '../TodoItem';
 
@@ -56,12 +60,12 @@ TodoList.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    toggleCompletion (id) {
+    toggleCompletion(id) {
       dispatch(toggleTaskCompletion(id));
     },
-    deleteTask (id) {
+    deleteTask(id) {
       dispatch(deleteTask(id));
-    }
+    },
   };
 }
 
@@ -69,7 +73,7 @@ function getSelector(state, props) {
   const filterToSelector = {
     'all': selectAllTodos,
     'completed': selectCompletedTodos,
-    'active': selectActiveTodos
+    'active': selectActiveTodos,
   };
   return createSelector(filterToSelector[props.filter], (todos) => ({ todos }))(state, props);
 }

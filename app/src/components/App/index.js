@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import styles from './styles';
 import MainNavigation from '../MainNavigation';
 import AddTodoItem from '../AddTodoItem';
-import { loadTasks } from '../TodoList/actions';
+import { loadTasks } from '../../state/todos/actions';
 
 class App extends Component {
   componentDidMount() {
@@ -19,7 +19,7 @@ class App extends Component {
 
   render() {
     return (
-      <View style={ styles.container }>
+      <View style={styles.container}>
         { Platform.OS === 'ios' ? <AddTodoItem /> : null }
         <MainNavigation />
       </View>

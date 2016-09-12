@@ -3,8 +3,8 @@ import { put, call } from 'redux-saga/effects';
 import {
   ADD_TASK_REQUEST,
   ADD_TASK_SUCCESS,
-  ADD_TASK_ERROR
-} from '../components/TodoList/constants';
+  ADD_TASK_ERROR,
+} from '../state/action-types';
 import { addTodo as _addTodo } from '../api/todos';
 
 function* runAddTodo(action) {

@@ -4,7 +4,7 @@ import {
   TOGGLE_TASK_COMPLETION_REQUEST,
   TOGGLE_TASK_COMPLETION_SUCCESS,
   TOGGLE_TASK_COMPLETION_ERROR,
-} from '../components/TodoList/constants';
+} from '../state/action-types';
 import { toggleTodoCompletion as _toggleTodoCompletion } from '../api/todos';
 
 function* runToggleTodoCompletion(action) {

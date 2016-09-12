@@ -1,6 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { put, call } from 'redux-saga/effects';
-import { LOAD_TASKS_REQUEST, LOAD_TASKS_ERROR, LOAD_TASKS_SUCCESS } from '../components/TodoList/constants';
+import { LOAD_TASKS_REQUEST, LOAD_TASKS_ERROR, LOAD_TASKS_SUCCESS } from '../state/action-types';
 import { loadAllTodos } from '../api/todos';
 import { getCurrentUser } from '../api/auth';
 

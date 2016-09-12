@@ -10,7 +10,7 @@ import styles from './styles';
 
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { selectMainNavigation } from './reducer';
+import { selectMainNavigation } from '../../state/navigation/selectors';
 import { TouchableHighlight } from 'react-native';
 import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 import ToolbarAndroid from 'ToolbarAndroid';

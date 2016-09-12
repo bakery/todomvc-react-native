@@ -1,18 +1,18 @@
-import { applyMiddleware, compose, createStore, } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import { fromJS } from 'immutable';
 import createSagaMiddleware from 'redux-saga';
-import createReducer from './reducers';
+import createReducer from './state';
 import devTools from 'remote-redux-devtools';
 
 const sagaMiddleware = createSagaMiddleware();
 
 function configureStore(initialState = fromJS({})) {
-  let middlewares = [
-    sagaMiddleware
+  const middlewares = [
+    sagaMiddleware,
   ];
 
-  let enhancers = [
-    applyMiddleware(...middlewares)
+  const enhancers = [
+    applyMiddleware(...middlewares),
   ];
 
   if (__DEV__) {
