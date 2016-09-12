@@ -5,6 +5,6 @@ export default StyleSheet.create({
     paddingLeft: 15,
     height: 60,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ededed'
-  }
+    borderColor: '#ededed',
+  },
 });

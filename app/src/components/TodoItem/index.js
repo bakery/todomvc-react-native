@@ -9,28 +9,43 @@ import React, { Component, PropTypes } from 'react';
 import styles from './styles';
 import Swipeout from 'react-native-swipeout';
 
+// eslint-disable-next-line
+const checkedIcon = require('./images/checked.png');
+// eslint-disable-next-line
+const uncheckedIcon = require('./images/unchecked.png');
+// eslint-disable-next-line
+const errorIcon = require('./images/error.png');
+
 
 class TodoItem extends Component {
+  renderCheckbox() {
+    const imageModule = this.props.todo.isComplete ? checkedIcon : uncheckedIcon;
+
+    return (
+      <Image style={[styles.checkbox]} source={imageModule} />
+    );
+  }
+
   render() {
     const swipeoutBtns = [{
       text: 'Delete',
       backgroundColor: 'red',
       onPress: () => {
         this.props.onDelete(this.props.todo.id);
-      }
+      },
     }];
     const { todo } = this.props;
     const viewDisabledStyling = todo.isComplete || todo.isDisabled ? { opacity: 0.5 } : {};
     const labelCompletedStyling = todo.isComplete ? { textDecorationLine: 'line-through' } : {};
     const error = todo.error ? (
       <View style={styles.errorWrapper}>
-        <Image style={styles.errorIcon} source={require('./images/error.png')}/>
+        <Image style={styles.errorIcon} source={errorIcon} />
         <Text style={styles.errorLabel}>{todo.error}</Text>
       </View>
     ) : null;
     const item = (
       <View style={[styles.item, viewDisabledStyling]}>
-        {this._renderCheckbox()}
+        {this.renderCheckbox()}
         <View style={styles.labelWrapper}>
           <Text style={[styles.label, labelCompletedStyling]}>{todo.text}</Text>
           {error}
@@ -47,20 +62,11 @@ class TodoItem extends Component {
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={ () => this.props.onToggleCompletion(todo.id) }>
+          onPress={() => this.props.onToggleCompletion(todo.id)}
+        >
           {item}
         </TouchableOpacity>
       </Swipeout>
-    );
-  }
-
-  _renderCheckbox() {
-    const imageModule = this.props.todo.isComplete ?
-      require('./images/checked.png') :
-      require('./images/unchecked.png');
-
-    return  (
-      <Image style={[styles.checkbox]} source={imageModule} />
     );
   }
 }
@@ -68,7 +74,7 @@ class TodoItem extends Component {
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired,
   onToggleCompletion: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default TodoItem;
