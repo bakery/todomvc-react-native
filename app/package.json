@@ -13,19 +13,19 @@
   },
   "dependencies": {
     "immutable": "^3.8.1",
-    "parse": "1.8.5",
+    "parse": "1.9.2",
     "parse-graphql-client": "^0.2.0",
-    "react": "~15.2.1",
-    "react-native": "^0.31.0",
-    "react-native-navigation-redux-helpers": "^0.3.0",
+    "react": "~15.3.2",
+    "react-native": "^0.34.0",
+    "react-native-navigation-redux-helpers": "^0.4.1",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
     "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-immutable": "^3.0.6",
-    "redux-saga": "^0.10.5",
-    "reselect": "^2.4.0"
+    "redux": "^3.6.0",
+    "redux-immutable": "^3.0.8",
+    "redux-saga": "^0.11.1",
+    "reselect": "^2.5.4"
   },
   "devDependencies": {
-    "remote-redux-devtools": "^0.3.3"
+    "remote-redux-devtools": "^0.4.9"
   }
 }
