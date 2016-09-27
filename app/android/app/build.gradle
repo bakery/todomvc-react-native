@@ -82,12 +82,22 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.todos"
+        applicationId "io.thebakery.todomvc"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
@@ -96,6 +106,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
     splits {
         abi {
             reset()

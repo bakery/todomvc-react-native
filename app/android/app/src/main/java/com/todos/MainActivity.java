@@ -1,4 +1,4 @@
-package com.todos;
+package io.thebakery.todomvc;
 
 import com.facebook.react.ReactActivity;
 

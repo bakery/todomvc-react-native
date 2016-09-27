@@ -1,4 +1,4 @@
-package com.todos;
+package io.thebakery.todomvc;
 
 import android.app.Application;
 import android.util.Log;
