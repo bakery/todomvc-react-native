@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+// Here's a super hacky way to bump versionCode in your gradle build file
+// for React Native projects
+// Usage: gradle-bump PATH_TO_GRADLE_BUILD
+// ----------------------------------------------------------------------
+// Note: this only affects versionCode value and not versionName which is
+// something you want to edit manually
+
+if (process.argv.length < 3) {
+  console.error('Usage: gradle-bump PATH_TO_GRADLE_BUILD_FILE');
+  process.exit(1);
+}
+
+var fs = require('fs');
+var gradleFileLocation = process.argv[2];
+var versionCodeRx = /(versionCode) ([0-9]+)/ig;
+var gradleConfigContent = fs.readFileSync(gradleFileLocation).toString();
+var currentVersionCode = parseInt(versionCodeRx.exec(gradleConfigContent)[2], 10);
+
+fs.writeFileSync(gradleFileLocation,
+  gradleConfigContent.replace(versionCodeRx, '$1 ' + (currentVersionCode + 1))
+);
+
+console.log('Bumped versionCode: ', currentVersionCode, '->', currentVersionCode + 1);
