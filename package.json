@@ -1,7 +1,7 @@
 {
   "name": "Todos",
   "version": "1.0.0",
-  "description": "React Native app powered by Baker",
+  "description": "React Native Todo list",
   "author": "",
   "license": "ISC",
   "scripts": {
