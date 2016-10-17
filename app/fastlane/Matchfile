@@ -1,6 +1,6 @@
-git_url "git+ssh://git@github.com/callmephilip/todos-certs.git"
+git_url "git+ssh://git@github.com/callmephilip/fastlane-ios-certs.git"
 
-type "development" # The default type, can be: appstore, adhoc or development
+type "appstore"
 
 app_identifier "io.thebakery.todos" 
 username "bakers@thebakery.io"
