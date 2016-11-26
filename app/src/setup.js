@@ -1,10 +1,11 @@
 import App from './components/App';
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
 import configureStore from './store';
 import sagas from './sagas';
 import Parse from 'parse/react-native';
 import Settings from './settings';
+import { ApolloProvider } from 'react-apollo';
+import apollo from './state/apollo';
 
 const settings = Settings.load();
 
@@ -18,9 +19,9 @@ function setup() {
   class Root extends Component {
     render() {
       return (
-        <Provider store={store}>
+        <ApolloProvider store={store} client={apollo} immutable={true}>
           <App />
-        </Provider>
+        </ApolloProvider>
       );
     }
   }

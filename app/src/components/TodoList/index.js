@@ -4,20 +4,13 @@
  *
  */
 
-import { View, ListView } from 'react-native';
+import { View, Text, ListView } from 'react-native';
 import React, { Component, PropTypes } from 'react';
 import styles from './styles';
-
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
-import {
-  selectAllTodos,
-  selectActiveTodos,
-  selectCompletedTodos,
-} from '../../state/todos/selectors';
-import { toggleTaskCompletion, deleteTask } from '../../state/todos/actions';
 import NoTodos from '../NoTodos';
 import TodoItem from '../TodoItem';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class TodoList extends Component {
   constructor() {
@@ -27,14 +20,15 @@ class TodoList extends Component {
   }
 
   renderList() {
-    if (this.props.todos.size !== 0) {
+    const { todos } = this.props;
+    if (todos && todos.length !== 0) {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2,
       });
 
       return (
         <ListView
-          dataSource={ds.cloneWithRows(this.props.todos.toJS())}
+          dataSource={ds.cloneWithRows(todos)}
           renderRow={this.renderRow}
         />
       );
@@ -50,47 +44,75 @@ class TodoList extends Component {
       <TodoItem
         todo={todo}
         key={todo.id}
-        onDelete={this.props.deleteTask}
-        onToggleCompletion={this.props.toggleCompletion}
+        onDelete={this.props.deleteTodo}
+        onToggleCompletion={this.props.toggleTodoCompletion}
       />
     );
   }
 
   render() {
+    const { loading } = this.props;
     return (
       <View style={styles.container}>
-        {this.renderList()}
+        {loading ? <Text>Loading...</Text> : this.renderList()}
       </View>
     );
   }
 }
 
 TodoList.propTypes = {
-  todos: PropTypes.object.isRequired,
+  todos: PropTypes.array,
+  loading: PropTypes.bool.isRequired,
   filter: PropTypes.string.isRequired,
-  deleteTask: PropTypes.func.isRequired,
-  toggleCompletion: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  toggleTodoCompletion: PropTypes.func.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    toggleCompletion(id) {
-      dispatch(toggleTaskCompletion(id));
-    },
-    deleteTask(id) {
-      dispatch(deleteTask(id));
-    },
-  };
-}
 
-function getSelector(state, props) {
-  const filterToSelector = {
-    all: selectAllTodos,
-    completed: selectCompletedTodos,
-    active: selectActiveTodos,
-  };
-  return createSelector(filterToSelector[props.filter], (todos) => ({ todos }))(state, props);
-}
+const withData = graphql(gql`
+  query todos($isComplete: Boolean) { 
+    todos(isComplete: $isComplete) { id, text, isComplete }
+  }
+  `, {
+    options: ({ filter }) => {
+      const isComplete = filter === 'all' ? undefined : filter === 'completed';
+      return { variables: { isComplete } };
+    },
+    props: ({ data: { loading, todos } }) => {
+      return {
+        loading,
+        todos,
+      };
+    },
+  }
+);
 
-export default connect(getSelector, mapDispatchToProps)(TodoList);
+const toggleCompletionMutation = gql`
+  mutation toggleTodoCompletion($id: ID!) {
+    toggleTodoCompletion(id: $id) {
+      id, isComplete, text
+    }
+  }
+`;
+
+const withToggleMutation = graphql(toggleCompletionMutation, {
+  props: ({ mutate }) => ({
+    toggleTodoCompletion: ({ id }) => mutate({ variables: { id } }),
+  }),
+});
+
+const deleteMutation = gql`
+  mutation deleteTodo($id: ID!) {
+    deleteTodo(id: $id) {
+      id, isComplete, text
+    }
+  }
+`;
+
+const withDeleteMutation = graphql(deleteMutation, {
+  props: ({ mutate }) => ({
+    deleteTodo: ({ id }) => mutate({ variables: { id } }),
+  }),
+});
+
+export default withDeleteMutation(withToggleMutation(withData(TodoList)));

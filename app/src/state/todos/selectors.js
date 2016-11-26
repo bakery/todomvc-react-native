@@ -1,11 +1,11 @@
 export function selectAllTodos(state) {
-  return state.get('todos').get('items');
+  return [];
 }
 
 export function selectCompletedTodos(state) {
-  return state.get('todos').get('items').filter(todo => todo.get('isComplete'));
+  return [];
 }
 
 export function selectActiveTodos(state) {
-  return state.get('todos').get('items').filter(todo => !todo.get('isComplete'));
+  return [];
 }

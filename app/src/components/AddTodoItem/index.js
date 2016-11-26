@@ -7,8 +7,8 @@
 import { TextInput } from 'react-native';
 import React, { Component } from 'react';
 import styles from './styles';
-import { connect } from 'react-redux';
-import { addTask } from '../../state/todos/actions';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class AddTodoItem extends Component {
   constructor() {
@@ -18,7 +18,7 @@ class AddTodoItem extends Component {
   }
 
   saveTodoItem() {
-    this.props.addTask(this.state.text);
+    this.props.addTodo({ text: this.state.text });
     this.textBox.clear();
   }
 
@@ -37,16 +37,21 @@ class AddTodoItem extends Component {
 }
 
 AddTodoItem.propTypes = {
-  addTask: React.PropTypes.func.isRequired,
+  addTodo: React.PropTypes.func.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    addTask(text) {
-      dispatch(addTask(text));
-    },
-  };
-}
+const mutation = gql`
+  mutation addTodo($text: String!) {
+    addTodo(text: $text) {
+      id, isComplete, text
+    }
+  }
+`;
 
-export default connect(() => ({}), mapDispatchToProps)(AddTodoItem);
+const withMutation = graphql(mutation, {
+  props: ({ mutate }) => ({
+    addTodo: ({ text }) => mutate({ variables: { text } }),
+  }),
+});
+
+export default withMutation(AddTodoItem);

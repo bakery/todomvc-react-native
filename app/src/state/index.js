@@ -1,10 +1,10 @@
-import todos from './todos/reducer';
 import mainNavigation from './navigation/reducer';
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
+import apollo from './apollo';
 
 const applicationReducers = {
   mainNavigation,
-  todos,
+  apollo: apollo.reducer(),
 };
 
 export default function createReducer() {
