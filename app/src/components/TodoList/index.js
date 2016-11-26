@@ -11,6 +11,7 @@ import NoTodos from '../NoTodos';
 import TodoItem from '../TodoItem';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import update from 'react-addons-update';
 
 class TodoList extends Component {
   constructor() {
@@ -111,7 +112,19 @@ const deleteMutation = gql`
 
 const withDeleteMutation = graphql(deleteMutation, {
   props: ({ mutate }) => ({
-    deleteTodo: ({ id }) => mutate({ variables: { id } }),
+    deleteTodo: ({ id }) => mutate({
+      variables: { id },
+      updateQueries: {
+        todos: (prev, { mutationResult }) => {
+          const deletedTodo = mutationResult.data.deleteTodo;
+          return update(prev, {
+            todos: {
+              $set: prev.todos.filter(t => t.id !== deletedTodo.id),
+            },
+          });
+        },
+      },
+    }),
   }),
 });
 

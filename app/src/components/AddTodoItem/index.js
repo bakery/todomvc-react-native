@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import styles from './styles';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import update from 'react-addons-update';
 
 class AddTodoItem extends Component {
   constructor() {
@@ -50,7 +51,19 @@ const mutation = gql`
 
 const withMutation = graphql(mutation, {
   props: ({ mutate }) => ({
-    addTodo: ({ text }) => mutate({ variables: { text } }),
+    addTodo: ({ text }) => mutate({
+      variables: { text },
+      updateQueries: {
+        todos: (prev, { mutationResult }) => {
+          const newTodo = mutationResult.data.addTodo;
+          return update(prev, {
+            todos: {
+              $unshift: [newTodo],
+            },
+          });
+        },
+      },
+    }),
   }),
 });
 
