@@ -12,10 +12,12 @@
     "node": ">=4.3"
   },
   "dependencies": {
+    "apollo-client": "^0.5.6",
+    "graphql-tag": "^1.0.0",
     "immutable": "^3.8.1",
     "parse": "1.9.2",
-    "parse-graphql-client": "^0.2.0",
     "react": "~15.3.1",
+    "react-apollo": "^0.6.0",
     "react-native": "^0.35.0",
     "react-native-navigation-redux-helpers": "^0.4.1",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
