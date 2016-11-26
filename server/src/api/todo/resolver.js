@@ -7,12 +7,15 @@ export default {
     isComplete: (root) => root.get('isComplete'),
   },
   Query: {
-    todos(root, { isComplete }, { Query }) {
-      console.error('@@ running todos resolver', arguments);
+    todos(root, { isComplete }, { Query, user }) {
       const query = new Query(Todo);
 
       if (typeof isComplete !== 'undefined') {
         query.equalTo('isComplete', isComplete);
+      }
+
+      if (user) {
+        query.equalTo('user', user);
       }
 
       return query.find();
@@ -20,7 +23,7 @@ export default {
   },
   Mutation: {
     addTodo(_, { text }, { Query, user }) {
-      const newTodo = new Query(Todo).create({ text, isComplete: false });
+      const newTodo = new Query(Todo).create({ isComplete: false, text, user });
       if (user) {
         newTodo.setACL(new Parse.ACL(user));
       }
