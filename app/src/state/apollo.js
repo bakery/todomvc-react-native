@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: off */
+
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { getCurrentUser } from '../api/auth';
 
