@@ -2,8 +2,10 @@
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { getCurrentUser } from '../api/auth';
+import Settings from '../settings';
 
-const networkInterface = createNetworkInterface({ uri: 'http://localhost:8000/graphql' });
+const settings = Settings.load();
+const networkInterface = createNetworkInterface({ uri: settings.graphqlURL });
 
 networkInterface.use([{
   applyMiddleware(req, next) {
