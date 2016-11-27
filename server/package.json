@@ -21,6 +21,7 @@
     "babel-preset-es2015": "^6.14.0",
     "body-parser": "^1.15.2",
     "express": "^4.13.4",
+    "express-delay": "^0.1.0",
     "graphql": "^0.6.2",
     "graphql-server-express": "^0.4.3",
     "graphql-tools": "^0.8.3",

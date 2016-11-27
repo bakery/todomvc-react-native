@@ -1,5 +1,6 @@
 import packageJSON from '../package';
 import express from 'express';
+import delay from 'express-delay';
 import graphql from './graphql';
 import parseServer from './parse-server';
 
@@ -20,6 +21,9 @@ function loadSettings() {
 const settings = loadSettings();
 const app = express();
 const serverPort = process.env.PORT || settings.serverPort;
+
+// XX: delay all the responses
+app.use(delay(0));
 
 parseServer.setup(app, packageJSON.name, settings);
 graphql.setup(app);
