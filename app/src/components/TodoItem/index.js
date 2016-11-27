@@ -31,7 +31,8 @@ class TodoItem extends Component {
       text: 'Delete',
       backgroundColor: 'red',
       onPress: () => {
-        this.props.onDelete({ id: this.props.todo.id });
+        const { todo } = this.props;
+        this.props.onDelete({ todo });
       },
     }];
     const { todo } = this.props;
@@ -62,7 +63,7 @@ class TodoItem extends Component {
       <Swipeout right={swipeoutBtns} backgroundColor={'transparent'}>
         <TouchableOpacity
           underlayColor="transparent"
-          onPress={() => this.props.onToggleCompletion({ id: todo.id })}
+          onPress={() => this.props.onToggleCompletion({ todo })}
         >
           {item}
         </TouchableOpacity>

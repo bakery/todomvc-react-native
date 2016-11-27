@@ -12,8 +12,16 @@ const toggleCompletionMutation = gql`
 
 export const withToggleMutation = graphql(toggleCompletionMutation, {
   props: ({ mutate }) => ({
-    toggleTodoCompletion: ({ id }) => mutate({
-      variables: { id },
+    toggleTodoCompletion: ({ todo }) => mutate({
+      variables: { id: todo.id },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        toggleTodoCompletion: Object.assign({
+          __typename: 'Todo',
+        }, todo, {
+          isComplete: !todo.isComplete,
+        }),
+      },
       updateQueries: {
         todos: (prev, { mutationResult }) => {
           const updatedTodo = mutationResult.data.toggleTodoCompletion;
@@ -41,8 +49,14 @@ const deleteMutation = gql`
 
 export const withDeleteMutation = graphql(deleteMutation, {
   props: ({ mutate }) => ({
-    deleteTodo: ({ id }) => mutate({
-      variables: { id },
+    deleteTodo: ({ todo }) => mutate({
+      variables: { id: todo.id },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        deleteTodo: Object.assign({
+          __typename: 'Todo',
+        }, todo),
+      },
       updateQueries: {
         todos: (prev, { mutationResult }) => {
           const deletedTodo = mutationResult.data.deleteTodo;
@@ -69,6 +83,16 @@ export const withCreateMutation = graphql(createMutation, {
   props: ({ mutate }) => ({
     addTodo: ({ text }) => mutate({
       variables: { text },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        addTodo: {
+          __typename: 'Todo',
+          createdAt: new Date().getTime(),
+          id: Math.floor(Math.random() * 1000).toString(),
+          text,
+          isComplete: false,
+        },
+      },
       updateQueries: {
         todos: (prev, { mutationResult }) => {
           const newTodo = mutationResult.data.addTodo;
