@@ -98,7 +98,22 @@ const toggleCompletionMutation = gql`
 
 const withToggleMutation = graphql(toggleCompletionMutation, {
   props: ({ mutate }) => ({
-    toggleTodoCompletion: ({ id }) => mutate({ variables: { id } }),
+    toggleTodoCompletion: ({ id }) => mutate({
+      variables: { id },
+      updateQueries: {
+        todos: (prev, { mutationResult }) => {
+          const updatedTodo = mutationResult.data.toggleTodoCompletion;
+          return update(prev, {
+            todos: {
+              $set: [
+                ...prev.todos.filter(t => t.id !== updatedTodo.id),
+                updatedTodo,
+              ],
+            },
+          });
+        },
+      },
+    }),
   }),
 });
 
