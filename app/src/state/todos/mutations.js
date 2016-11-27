@@ -1,16 +1,21 @@
 import { graphql } from 'react-apollo';
+import { getFragmentDefinitions } from 'apollo-client';
 import gql from 'graphql-tag';
 import update from 'react-addons-update';
+import { TodoFields } from './fragments';
 
 const toggleCompletionMutation = gql`
   mutation toggleTodoCompletion($id: ID!) {
     toggleTodoCompletion(id: $id) {
-      id, isComplete, text, createdAt
+      ...TodoFields
     }
   }
 `;
 
 export const withToggleMutation = graphql(toggleCompletionMutation, {
+  options: () => ({
+    fragments: getFragmentDefinitions(TodoFields),
+  }),
   props: ({ mutate }) => ({
     toggleTodoCompletion: ({ todo }) => mutate({
       variables: { id: todo.id },
@@ -42,12 +47,15 @@ export const withToggleMutation = graphql(toggleCompletionMutation, {
 const deleteMutation = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
-      id, isComplete, text, createdAt
+      ...TodoFields
     }
   }
 `;
 
 export const withDeleteMutation = graphql(deleteMutation, {
+  options: () => ({
+    fragments: getFragmentDefinitions(TodoFields),
+  }),
   props: ({ mutate }) => ({
     deleteTodo: ({ todo }) => mutate({
       variables: { id: todo.id },
@@ -74,12 +82,15 @@ export const withDeleteMutation = graphql(deleteMutation, {
 const createMutation = gql`
   mutation addTodo($text: String!) {
     addTodo(text: $text) {
-      id, isComplete, text, createdAt
+      ...TodoFields
     }
   }
 `;
 
 export const withCreateMutation = graphql(createMutation, {
+  options: () => ({
+    fragments: getFragmentDefinitions(TodoFields),
+  }),
   props: ({ mutate }) => ({
     addTodo: ({ text }) => mutate({
       variables: { text },
