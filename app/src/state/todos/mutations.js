@@ -5,7 +5,7 @@ import update from 'react-addons-update';
 const toggleCompletionMutation = gql`
   mutation toggleTodoCompletion($id: ID!) {
     toggleTodoCompletion(id: $id) {
-      id, isComplete, text
+      id, isComplete, text, createdAt
     }
   }
 `;
@@ -34,7 +34,7 @@ export const withToggleMutation = graphql(toggleCompletionMutation, {
 const deleteMutation = gql`
   mutation deleteTodo($id: ID!) {
     deleteTodo(id: $id) {
-      id, isComplete, text
+      id, isComplete, text, createdAt
     }
   }
 `;
@@ -49,6 +49,32 @@ export const withDeleteMutation = graphql(deleteMutation, {
           return update(prev, {
             todos: {
               $set: prev.todos.filter(t => t.id !== deletedTodo.id),
+            },
+          });
+        },
+      },
+    }),
+  }),
+});
+
+const createMutation = gql`
+  mutation addTodo($text: String!) {
+    addTodo(text: $text) {
+      id, isComplete, text, createdAt
+    }
+  }
+`;
+
+export const withCreateMutation = graphql(createMutation, {
+  props: ({ mutate }) => ({
+    addTodo: ({ text }) => mutate({
+      variables: { text },
+      updateQueries: {
+        todos: (prev, { mutationResult }) => {
+          const newTodo = mutationResult.data.addTodo;
+          return update(prev, {
+            todos: {
+              $unshift: [newTodo],
             },
           });
         },

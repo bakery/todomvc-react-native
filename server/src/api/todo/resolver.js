@@ -5,6 +5,7 @@ export default {
   Todo: {
     text: (root) => root.get('text'),
     isComplete: (root) => root.get('isComplete'),
+    createdAt: (root) => root.get('createdAt').getTime(),
   },
   Query: {
     todos(root, { isComplete }, { Query, user }) {

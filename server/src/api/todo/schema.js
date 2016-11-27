@@ -2,7 +2,8 @@ export default `
 type Todo {
   id: ID! 
   text: String!
-  isComplete: Boolean!
+  isComplete: Boolean!,
+  createdAt: Float!
 }
 
 # the schema allows the following query:
