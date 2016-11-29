@@ -11,17 +11,18 @@ import { createSelector } from 'reselect';
 import { selectMainNavigation } from '../../state/navigation/selectors';
 // eslint-disable-next-line
 import { TabBarIOS, View } from 'react-native';
-import TodoList from '../TodoList';
 import { actions as navigationActions } from 'react-native-navigation-redux-helpers';
+import { filterToComponent } from './helpers';
 
 const { jumpTo } = navigationActions;
 
 
 class MainNavigation extends Component {
   renderTabContent(tab) {
+    const todoList = filterToComponent[tab.key];
     return (
       <View style={styles.container}>
-        <TodoList filter={tab.key} />
+        {todoList}
       </View>
     );
   }

@@ -14,10 +14,9 @@ import { selectMainNavigation } from '../../state/navigation/selectors';
 import DrawerLayoutAndroid from 'DrawerLayoutAndroid';
 // eslint-disable-next-line
 import ToolbarAndroid from 'ToolbarAndroid';
-import TodoList from '../TodoList';
 import AddTodoItem from '../AddTodoItem';
-
 import { actions as navigationActions } from 'react-native-navigation-redux-helpers';
+import { filterToComponent } from './helpers';
 
 const { jumpTo } = navigationActions;
 
@@ -60,9 +59,10 @@ class MainNavigation extends Component {
   }
 
   renderTabContent(tab) {
+    const todoList = filterToComponent[tab.key];
     return (
       <View style={styles.container}>
-        <TodoList filter={tab.key} />
+        {todoList}
       </View>
     );
   }

@@ -52,6 +52,15 @@ const deleteMutation = gql`
   }
 `;
 
+function updateQueryAfterDelete(prev, { mutationResult }) {
+  const deletedTodo = mutationResult.data.deleteTodo;
+  return update(prev, {
+    todos: {
+      $set: prev.todos.filter(t => t.id !== deletedTodo.id),
+    },
+  });
+}
+
 export const withDeleteMutation = graphql(deleteMutation, {
   options: () => ({
     fragments: getFragmentDefinitions(TodoFields),
@@ -66,14 +75,9 @@ export const withDeleteMutation = graphql(deleteMutation, {
         }, todo),
       },
       updateQueries: {
-        todos: (prev, { mutationResult }) => {
-          const deletedTodo = mutationResult.data.deleteTodo;
-          return update(prev, {
-            todos: {
-              $set: prev.todos.filter(t => t.id !== deletedTodo.id),
-            },
-          });
-        },
+        allTodos: updateQueryAfterDelete,
+        activeTodos: updateQueryAfterDelete,
+        completedTodos: updateQueryAfterDelete,
       },
     }),
   }),
@@ -86,6 +90,15 @@ const createMutation = gql`
     }
   }
 `;
+
+function updateQueryAfterCreate(prev, { mutationResult }) {
+  const newTodo = mutationResult.data.addTodo;
+  return update(prev, {
+    todos: {
+      $unshift: [newTodo],
+    },
+  });
+}
 
 export const withCreateMutation = graphql(createMutation, {
   options: () => ({
@@ -105,14 +118,8 @@ export const withCreateMutation = graphql(createMutation, {
         },
       },
       updateQueries: {
-        todos: (prev, { mutationResult }) => {
-          const newTodo = mutationResult.data.addTodo;
-          return update(prev, {
-            todos: {
-              $unshift: [newTodo],
-            },
-          });
-        },
+        allTodos: updateQueryAfterCreate,
+        activeTodos: updateQueryAfterCreate,
       },
     }),
   }),

@@ -4,18 +4,35 @@ import gql from 'graphql-tag';
 import { sortTodos } from './helpers';
 import { TodoFields } from './fragments';
 
-export const withTodoData = graphql(gql`
-  query todos($isComplete: Boolean) { 
-    todos(isComplete: $isComplete) { ...TodoFields }
+
+const allTodosQuery = gql`
+  query allTodos { 
+    todos { ...TodoFields }
   }
-  `, {
-    options: ({ filter }) => {
-      const isComplete = filter === 'all' ? undefined : filter === 'completed';
-      return {
-        variables: { isComplete },
-        fragments: getFragmentDefinitions(TodoFields),
-      };
-    },
-    props: ({ data: { loading, todos } }) => ({ loading, todos: sortTodos(todos) }),
+`;
+
+const completedTodosQuery = gql`
+  query completedTodos { 
+    todos(isComplete: true) { ...TodoFields }
   }
-);
+`;
+
+const activeTodosQuery = gql`
+  query activeTodos { 
+    todos(isComplete: false) { ...TodoFields }
+  }
+`;
+
+const basicQueryConfig = {
+  options: {
+    fragments: getFragmentDefinitions(TodoFields),
+  },
+  props: ({ data: { loading, todos } }) => ({
+    loading,
+    todos: sortTodos(todos),
+  }),
+};
+
+export const withAllTodos = graphql(allTodosQuery, basicQueryConfig);
+export const withCompletedTodos = graphql(completedTodosQuery, basicQueryConfig);
+export const withActiveTodos = graphql(activeTodosQuery, basicQueryConfig);
