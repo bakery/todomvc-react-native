@@ -27,19 +27,6 @@ export const withToggleMutation = graphql(toggleCompletionMutation, {
           isComplete: !todo.isComplete,
         }),
       },
-      updateQueries: {
-        todos: (prev, { mutationResult }) => {
-          const updatedTodo = mutationResult.data.toggleTodoCompletion;
-          return update(prev, {
-            todos: {
-              $set: [
-                ...prev.todos.filter(t => t.id !== updatedTodo.id),
-                updatedTodo,
-              ],
-            },
-          });
-        },
-      },
     }),
   }),
 });

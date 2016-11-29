@@ -1,4 +1,4 @@
-/* eslint no-param-reassign: off */
+/* eslint no-param-reassign: off, no-underscore-dangle: off */
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { getCurrentUser } from '../api/auth';
@@ -24,6 +24,14 @@ networkInterface.use([{
 
 const client = new ApolloClient({
   networkInterface,
+  dataIdFromObject: (result) => {
+    if (result.id && result.__typename) {
+      return result.__typename + result.id;
+    }
+
+    // Make sure to return null if this object doesn't have an ID
+    return null;
+  },
 });
 
 export default client;
