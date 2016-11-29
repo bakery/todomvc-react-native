@@ -12,24 +12,24 @@
     "node": ">=4.3"
   },
   "dependencies": {
-    "apollo-client": "^0.5.6",
+    "apollo-client": "^0.5.7",
     "graphql-tag": "^1.0.0",
     "immutable": "^3.8.1",
     "lodash": "^4.17.2",
     "parse": "1.9.2",
-    "react": "~15.3.1",
+    "react": "~15.4.1",
     "react-addons-update": "^15.4.1",
     "react-apollo": "^0.6.0",
-    "react-native": "^0.35.0",
-    "react-native-navigation-redux-helpers": "^0.4.1",
+    "react-native": "^0.38.0",
+    "react-native-navigation-redux-helpers": "^0.5.0",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
     "react-redux": "^4.4.5",
     "redux": "^3.6.0",
     "redux-immutable": "^3.0.8",
-    "redux-saga": "^0.11.1",
+    "redux-saga": "^0.13.0",
     "reselect": "^2.5.4"
   },
   "devDependencies": {
-    "remote-redux-devtools": "^0.4.9"
+    "remote-redux-devtools": "^0.5.4"
   }
 }
