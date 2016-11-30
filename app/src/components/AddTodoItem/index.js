@@ -7,8 +7,7 @@
 import { TextInput } from 'react-native';
 import React, { Component } from 'react';
 import styles from './styles';
-import { connect } from 'react-redux';
-import { addTask } from '../../state/todos/actions';
+import { withCreateMutation } from '../../state/todos/mutations';
 
 class AddTodoItem extends Component {
   constructor() {
@@ -18,7 +17,7 @@ class AddTodoItem extends Component {
   }
 
   saveTodoItem() {
-    this.props.addTask(this.state.text);
+    this.props.addTodo({ text: this.state.text });
     this.textBox.clear();
   }
 
@@ -37,16 +36,7 @@ class AddTodoItem extends Component {
 }
 
 AddTodoItem.propTypes = {
-  addTask: React.PropTypes.func.isRequired,
+  addTodo: React.PropTypes.func.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    addTask(text) {
-      dispatch(addTask(text));
-    },
-  };
-}
-
-export default connect(() => ({}), mapDispatchToProps)(AddTodoItem);
+export default withCreateMutation(AddTodoItem);

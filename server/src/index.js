@@ -1,5 +1,6 @@
 import packageJSON from '../package';
 import express from 'express';
+import delay from 'express-delay';
 import graphql from './graphql';
 import parseServer from './parse-server';
 
@@ -19,12 +20,12 @@ function loadSettings() {
 
 const settings = loadSettings();
 const app = express();
-const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
 const serverPort = process.env.PORT || settings.serverPort;
 
-parseServer.setup(app, packageJSON.name, settings);
-graphql.setup(app, IS_DEVELOPMENT);
+// XX: delay all the responses
+app.use(delay(0));
 
-app.listen(serverPort, function() {
-  console.log(`server running on port ${serverPort}`);
-});
+parseServer.setup(app, packageJSON.name, settings);
+graphql.setup(app);
+
+app.listen(serverPort);

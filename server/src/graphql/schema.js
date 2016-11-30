@@ -1,17 +1,10 @@
-import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import Todo from '../models/todo';
+import { makeExecutableSchema } from 'graphql-tools';
+import TodoSchema from '../api/todo/schema';
+import TodoResolvers from '../api/todo/resolver';
 
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
-    fields: {
-      todos: Todo.RootQuery
-    }
-  }),
-  mutation: new GraphQLObjectType({
-    name: 'Mutation',
-    fields: Object.assign({}, Todo.Mutations)
-  })
+const schema = makeExecutableSchema({
+  typeDefs: [TodoSchema],
+  resolvers: TodoResolvers,
 });
 
 export default schema;
