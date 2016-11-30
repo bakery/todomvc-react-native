@@ -1,4 +1,4 @@
-⚠️ This app has been migrated away from the original stack described in the article to using [Apollo Stack](http://www.apollodata.com/) for data management. Followup article coming up ⚠️
+⚠️ This app has been migrated away from the original stack described in the [article](http://blog.thebakery.io/todomvc-with-react-native-and-redux/) to using [Apollo Stack](http://www.apollodata.com/) for data management. Followup article coming up ⚠️
 
 # TodoMVC: React Native + Parse Server + Apollo Stack  
 
