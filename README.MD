@@ -1,4 +1,6 @@
-# TodoMVC: React Native + Parse Server + GraphQL  
+⚠️ This app has been migrated away from the original stack described in the article to using [Apollo Stack](http://www.apollodata.com/) for data management. Followup article coming up ⚠️
+
+# TodoMVC: React Native + Parse Server + Apollo Stack  
 
 [TodoMVC](http://todomvc.com/) using React Native with Parse Server persistence layer
 
