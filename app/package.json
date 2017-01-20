@@ -20,7 +20,7 @@
     "react": "~15.4.1",
     "react-addons-update": "^15.4.1",
     "react-apollo": "^0.6.0",
-    "react-native": "^0.38.0",
+    "react-native": "0.40.0",
     "react-native-navigation-redux-helpers": "^0.5.0",
     "react-native-swipeout": "git+https://github.com/magrinj/react-native-swipeout.git#403d973504b58ede25c137fb31b0eff7e03b0a66",
     "react-redux": "^4.4.5",
